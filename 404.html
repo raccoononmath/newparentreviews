@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Page Not Found | New Parent Reviews</title>
+    <meta name="robots" content="noindex, nofollow">
+    <link rel="stylesheet" href="/styles.css">
+    <style>
+        .error-container {
+            max-width: 800px;
+            margin: 100px auto;
+            padding: 40px 20px;
+            text-align: center;
+        }
+        .error-code {
+            font-size: 120px;
+            font-weight: bold;
+            color: var(--primary-color, #ff6b9d);
+            margin: 0;
+        }
+        .error-message {
+            font-size: 24px;
+            margin: 20px 0;
+        }
+        .error-links {
+            margin-top: 40px;
+        }
+        .error-links a {
+            display: inline-block;
+            margin: 10px;
+            padding: 12px 24px;
+            background: var(--primary-color, #ff6b9d);
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+        }
+        .error-links a:hover {
+            opacity: 0.9;
+        }
+    </style>
+    <script>
+        // Track 404 errors
+        if (typeof gtag !== 'undefined') {
+            gtag('event', 'page_not_found', {
+                'event_category': '404_error',
+                'event_label': window.location.pathname,
+                'referrer': document.referrer
+            });
+        }
+    </script>
+
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-TZV8W9VS35"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-TZV8W9VS35');
+    </script>
+</head>
+<body>
+    <div class="error-container">
+        <h1 class="error-code">404</h1>
+        <p class="error-message">😕 Oops! Page Not Found</p>
+        <p>The page you're looking for doesn't exist or has been moved.</p>
+        
+        <div class="error-links">
+            <a href="/">🏠 Go Home</a>
+            <a href="/products/grownsy-nasal-aspirator.html">👶 Top Products</a>
+            <a href="/contact.html">📧 Contact Us</a>
+        </div>
+        
+        <p style="margin-top: 60px; color: #666; font-size: 14px;">
+            <strong>Looking for something specific?</strong><br>
+            Try searching from our homepage or <a href="/contact.html">contact us</a> for help.
+        </p>
+    </div>
+    
+    <script>
+        // Log broken link for monitoring
+        console.error('404 Error:', {
+            path: window.location.pathname,
+            referrer: document.referrer,
+            timestamp: new Date().toISOString()
+        });
+    </script>
+</body>
+</html>
