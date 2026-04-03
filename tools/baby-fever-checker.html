@@ -1,0 +1,746 @@
+<!DOCTYPE html>
+
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Free baby fever checker tool. Enter your baby's temperature and age to instantly know if you should call the doctor, go to the ER, or treat at home. Based on AAP guidelines.">
+    <meta name="keywords" content="baby fever, infant fever, baby temperature, when to call doctor baby fever, newborn fever, baby fever checker, toddler fever">
+
+    <!-- Open Graph Tags -->
+    <meta property="og:title" content="Baby Fever Checker — Is My Baby's Temperature Dangerous?">
+    <meta property="og:description" content="Free tool to check if your baby&#39;s fever needs medical attention. Get guidance based on age and temperature.">
+    <meta property="og:url" content="https://newparentreviews.com/tools/baby-fever-checker">
+    <meta property="og:image" content="https://newparentreviews.com/images/social-share.jpg">
+    <meta property="og:type" content="website">
+
+    <title>Baby Fever Checker by Age — Should I Call the Doctor? | Free Tool</title>
+    <link rel="icon" type="image/png" href="../favicon.png">
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="canonical" href="https://newparentreviews.com/tools/baby-fever-checker">
+
+    <!-- Google Analytics -->
+    <script async="" src="./Baby Fever Checker - When to Call the Doctor _ New Parent Reviews_files/js"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-TZV8W9VS35');
+    </script>
+
+    <!-- FAQ Schema -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+            {
+                "@type": "Question",
+                "name": "What temperature is a fever in a baby?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "A rectal temperature of 100.4°F (38°C) or higher is considered a fever in babies. For oral or armpit readings, 99.5°F (37.5°C) or higher typically indicates a fever."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "When should I take my baby to the doctor for a fever?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "For babies under 3 months, any fever of 100.4°F (38°C) or higher requires immediate medical attention. For older babies, contact a doctor if the fever is 104°F or higher, lasts more than 24 hours, or is accompanied by concerning symptoms."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "How do I take my baby's temperature accurately?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Rectal temperature is most accurate for babies under 3 months. For older babies, temporal (forehead) or ear thermometers are convenient options. Armpit temperatures are less accurate but can be used for screening."
+                }
+            }
+        ]
+    }
+    </script>
+
+    <style>
+        .tool-container {
+            max-width: 700px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        .tool-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        .tool-header h1 {
+            font-size: 2rem;
+            color: #333;
+        }
+        .tool-header p {
+            color: #666;
+        }
+        .fever-form {
+            background: white;
+            padding: 2rem;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        }
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: #333;
+        }
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 0.75rem;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+        .form-group input:focus, .form-group select:focus {
+            border-color: #667eea;
+            outline: none;
+        }
+        .temp-input-group {
+            display: flex;
+            gap: 1rem;
+        }
+        .temp-input-group input {
+            flex: 1;
+        }
+        .temp-input-group select {
+            width: 80px;
+        }
+        .check-btn {
+            width: 100%;
+            padding: 1rem;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .check-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+        }
+        .result-box {
+            margin-top: 2rem;
+            padding: 1.5rem;
+            border-radius: 12px;
+            display: none;
+        }
+        .result-box.show {
+            display: block;
+        }
+        .result-box.emergency {
+            background: linear-gradient(135deg, #ff6b6b 0%, #ee5a5a 100%);
+            color: white;
+        }
+        .result-box.warning {
+            background: linear-gradient(135deg, #f39c12 0%, #e67e22 100%);
+            color: white;
+        }
+        .result-box.caution {
+            background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
+            color: white;
+        }
+        .result-box.normal {
+            background: linear-gradient(135deg, #2ecc71 0%, #27ae60 100%);
+            color: white;
+        }
+        .result-box h3 {
+            margin-bottom: 0.5rem;
+            font-size: 1.3rem;
+        }
+        .result-box ul {
+            margin: 1rem 0;
+            padding-left: 1.5rem;
+        }
+        .result-box li {
+            margin-bottom: 0.5rem;
+        }
+        .product-recommendation {
+            background: rgba(255,255,255,0.15);
+            padding: 1rem;
+            border-radius: 8px;
+            margin-top: 1rem;
+        }
+        .product-recommendation h4 {
+            margin-bottom: 0.5rem;
+        }
+        .product-recommendation a {
+            color: white;
+            text-decoration: underline;
+        }
+        .disclaimer-box {
+            background: #fff3cd;
+            border: 1px solid #ffc107;
+            padding: 1rem;
+            border-radius: 8px;
+            margin-top: 2rem;
+            font-size: 0.9rem;
+        }
+        .disclaimer-box strong {
+            color: #856404;
+        }
+        .faq-section {
+            margin-top: 3rem;
+        }
+        .faq-section h2 {
+            margin-bottom: 1.5rem;
+        }
+        .faq-item {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+        .faq-item h3 {
+            font-size: 1.1rem;
+            color: #333;
+            margin-bottom: 0.5rem;
+        }
+        .faq-item p {
+            color: #666;
+            line-height: 1.6;
+        }
+        .back-link {
+            display: inline-block;
+            margin-bottom: 1rem;
+            color: #667eea;
+            text-decoration: none;
+        }
+        .back-link:hover {
+            text-decoration: underline;
+        }
+    
+        /* Product Recommendation Styles */
+        .tool-product-rec {
+            margin-top: 1.5rem;
+            padding: 1.25rem;
+            background: linear-gradient(135deg, #f8fffe 0%, #f0faf7 100%);
+            border: 2px solid #d4edda;
+            border-radius: 12px;
+            text-align: left;
+        }
+        .tool-product-rec .rec-label {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: #28a745;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+        .tool-product-rec h4 {
+            margin: 0 0 0.4rem 0;
+            font-size: 1.05rem;
+            color: #333;
+        }
+        .tool-product-rec .rec-why {
+            font-size: 0.9rem;
+            color: #555;
+            margin-bottom: 0.75rem;
+            line-height: 1.4;
+        }
+        .tool-product-rec .rec-links {
+            display: flex;
+            gap: 0.75rem;
+            flex-wrap: wrap;
+        }
+        .tool-product-rec .rec-links a {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.2s;
+        }
+        .tool-product-rec .rec-links .btn-amazon {
+            background: #ff9900;
+            color: #111;
+        }
+        .tool-product-rec .rec-links .btn-amazon:hover {
+            background: #e88b00;
+        }
+        .tool-product-rec .rec-links .btn-review {
+            background: #fff;
+            color: #2a7ae2;
+            border: 1px solid #2a7ae2;
+        }
+        .tool-product-rec .rec-links .btn-review:hover {
+            background: #f0f6ff;
+        }
+        .tool-product-rec .rec-disclosure {
+            font-size: 0.7rem;
+            color: #999;
+            margin-top: 0.6rem;
+        }
+        .tool-product-rec + .tool-product-rec {
+            margin-top: 0.75rem;
+        }
+        /* Email capture after tool result */
+        .tool-email-capture {
+            margin-top: 1.5rem;
+            padding: 1.25rem;
+            background: #fff9e6;
+            border: 2px solid #ffeaa7;
+            border-radius: 12px;
+            text-align: center;
+        }
+        .tool-email-capture h4 {
+            margin: 0 0 0.5rem 0;
+            font-size: 1rem;
+            color: #333;
+        }
+        .tool-email-capture p {
+            font-size: 0.85rem;
+            color: #666;
+            margin-bottom: 0.75rem;
+        }
+        .tool-email-capture form {
+            display: flex;
+            gap: 0.5rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        .tool-email-capture input[type="email"] {
+            padding: 0.5rem 0.75rem;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            min-width: 220px;
+        }
+        .tool-email-capture button {
+            padding: 0.5rem 1rem;
+            background: #2a7ae2;
+            color: #fff;
+            border: none;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+    </style>
+    <!-- Google AdSense -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1019340861746623" crossorigin="anonymous"></script>
+
+    <style>
+    .medical-disclaimer-box {
+        background: #fff8e1;
+        border-left: 4px solid #f59e0b;
+        border-radius: 0 8px 8px 0;
+        padding: 1rem 1.25rem;
+        margin: 1rem 0 1.5rem;
+        font-size: 0.875rem;
+        line-height: 1.5;
+        color: #44403c;
+    }
+    .medical-disclaimer-box p { margin: 0 0 0.5rem; }
+    .medical-disclaimer-box p:first-child { font-size: 1rem; }
+    .medical-disclaimer-box a { color: #b45309; text-decoration: underline; }
+    </style>
+</head>
+<body>
+    <!-- Affiliate Disclosure Banner -->
+    <div class="disclosure-banner">
+        <div class="container">
+            <p><strong>Medical Disclaimer:</strong> This tool provides general educational information only and is not intended to diagnose, treat, cure, or prevent any condition. Always consult your pediatrician or a qualified healthcare professional for medical concerns. <a href="/legal/disclaimer">Read full disclaimer</a>.</p>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="logo">
+                <div class="logo-text"><a href="/">👶 New Parent Reviews</a></div>
+                <p class="tagline">Real Reviews from Real Parents</p>
+            </div>
+            <button class="menu-toggle" aria-label="Toggle menu" aria-expanded="false">
+                <span></span><span></span><span></span>
+            </button>
+            <nav>
+                <ul>
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/blog-index">Survival Guide</a></li>
+                    <li><a href="/comparisons-index">Comparisons</a></li>
+                    <li><a href="/tools/" class="active">Tools</a></li>
+                    <li><a href="/about">About</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="tool-container">
+    <div class="medical-disclaimer-box" role="note" aria-label="Medical disclaimer">
+        <p><strong>⚕️ For Informational Purposes Only</strong></p>
+        <p>This tool provides <strong>general educational information only</strong> and is <strong>not intended to diagnose, treat, cure, or prevent any medical condition.</strong> Results are based on general guidelines and do not account for your baby's individual health history.</p>
+        <p>Always consult a qualified healthcare professional or your pediatrician before making any medical decisions. <strong>If your baby is in distress or you suspect a medical emergency, call 911 or go to the nearest emergency room immediately.</strong></p>
+        <p style="margin:0; font-size: 0.8rem; color: #888;">By using this tool you acknowledge it is for informational purposes only. <a href="/legal/disclaimer">Read our full medical disclaimer.</a></p>
+    </div>
+
+        <a href="/tools/" class="back-link">← Back to All Tools</a>
+
+        <div class="tool-header">
+            <h1>Baby Fever Checker</h1>
+            <p>Enter your baby's temperature to get guidance on what to do next</p>
+        </div>
+
+        <div class="fever-form">
+            <div class="form-group">
+                <label for="baby-age">Baby's Age</label>
+                <select id="baby-age">
+                    <option value="">Select age range</option>
+                    <option value="0-3months">0-3 months (Newborn)</option>
+                    <option value="3-6months">3-6 months</option>
+                    <option value="6-12months">6-12 months</option>
+                    <option value="12-24months">12-24 months (Toddler)</option>
+                    <option value="24+months">24+ months</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="temperature">Temperature Reading</label>
+                <div class="temp-input-group">
+                    <input type="number" id="temperature" placeholder="e.g., 100.4" step="0.1" min="95" max="110">
+                    <select id="temp-unit">
+                        <option value="F">°F</option>
+                        <option value="C">°C</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="measurement-method">How was temperature taken?</label>
+                <select id="measurement-method">
+                    <option value="">Select method</option>
+                    <option value="rectal">Rectal (most accurate)</option>
+                    <option value="oral">Oral</option>
+                    <option value="ear">Ear (tympanic)</option>
+                    <option value="forehead">Forehead (temporal)</option>
+                    <option value="armpit">Armpit (axillary)</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>Additional Symptoms (check all that apply)</label>
+                <div style="display: grid; gap: 0.5rem;">
+                    <label style="font-weight: normal; display: flex; align-items: center; gap: 0.5rem;">
+                        <input type="checkbox" id="symptom-lethargic"> Unusually sleepy or hard to wake
+                    </label>
+                    <label style="font-weight: normal; display: flex; align-items: center; gap: 0.5rem;">
+                        <input type="checkbox" id="symptom-rash"> Unexplained rash
+                    </label>
+                    <label style="font-weight: normal; display: flex; align-items: center; gap: 0.5rem;">
+                        <input type="checkbox" id="symptom-breathing"> Difficulty breathing
+                    </label>
+                    <label style="font-weight: normal; display: flex; align-items: center; gap: 0.5rem;">
+                        <input type="checkbox" id="symptom-vomiting"> Persistent vomiting
+                    </label>
+                    <label style="font-weight: normal; display: flex; align-items: center; gap: 0.5rem;">
+                        <input type="checkbox" id="symptom-crying"> Inconsolable crying
+                    </label>
+                </div>
+            </div>
+
+            <button class="check-btn" onclick="checkFever()">Check Fever Severity</button>
+
+            <div id="result" class="result-box"></div>
+
+            <div class="disclaimer-box">
+                <strong>Important:</strong> This tool provides general guidance based on common pediatric recommendations. It is NOT a substitute for professional medical advice. When in doubt, always contact your pediatrician or seek emergency care.
+            </div>
+        </div>
+
+        <!-- FAQ Section -->
+        <section class="faq-section">
+            <h2>Frequently Asked Questions About Baby Fever</h2>
+
+            <div class="faq-item">
+                <h3>What temperature is considered a fever in babies?</h3>
+                <p>A rectal temperature of 100.4°F (38°C) or higher is considered a fever in babies. For oral or armpit readings, 99.5°F (37.5°C) or higher typically indicates a fever. Rectal temperatures are the most accurate for infants.</p>
+            </div>
+
+            <div class="faq-item">
+                <h3>When should I call the doctor for my baby's fever?</h3>
+                <p><strong>Call immediately if:</strong> Your baby is under 3 months with any fever 100.4°F or higher, has a fever over 104°F at any age, has a fever with a rash, is extremely lethargic, or has difficulty breathing. For babies 3-6 months, call if fever reaches 102°F or lasts more than 24 hours.</p>
+            </div>
+
+            <div class="faq-item">
+                <h3>How can I help my baby feel better with a fever?</h3>
+                <p>Keep your baby hydrated with frequent feedings. Dress them in light clothing and keep the room comfortable. A lukewarm bath can help. For babies over 3 months, infant acetaminophen (Tylenol) may be used - consult your pediatrician for dosing. <strong>Never give aspirin to children.</strong></p>
+            </div>
+
+            <div class="faq-item">
+                <h3>What's the most accurate way to take a baby's temperature?</h3>
+                <p>Rectal temperature is the gold standard for babies under 3 months. For older babies, temporal (forehead) or ear thermometers are convenient and reasonably accurate. Armpit temperatures are less accurate and may read 1-2°F lower than actual body temperature.</p>
+            </div>
+        </section>
+
+        <!-- Product Recommendation -->
+        <section style="margin-top: 3rem; background: #f8f9fa; padding: 2rem; border-radius: 12px;">
+            <h2>Recommended Thermometers</h2>
+            <p style="margin-bottom: 1rem;">An accurate thermometer is essential for monitoring your baby's health. Here are our top picks:</p>
+            <div style="display: grid; gap: 1rem;">
+                <a href="https://newparentreviews.com/products/frida-baby-thermometer" style="display: flex; gap: 1rem; padding: 1rem; background: white; border-radius: 8px; text-decoration: none; color: inherit; align-items: center;">
+                    <span style="font-size: 2rem;">🌡️</span>
+                    <div>
+                        <strong>Frida Baby 3-in-1 Thermometer</strong>
+                        <p style="margin: 0; color: #666; font-size: 0.9rem;">Rectal, oral &amp; underarm readings. Our top pick for accuracy.</p>
+                    </div>
+                </a>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h4>New Parent Reviews</h4>
+                    <p>Honest reviews from real parents.</p>
+                </div>
+                <div class="footer-column">
+                    <h4>Free Tools</h4>
+                    <ul>
+                        <li><a href="https://newparentreviews.com/tools/baby-fever-checker">Fever Checker</a></li>
+                        <li><a href="/tools/baby-sleep-schedule">Sleep Schedule</a></li>
+                        <li><a href="/tools/feeding-calculator">Feeding Calculator</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>Legal</h4>
+                    <ul>
+                        <li><a href="/legal/disclosure">Affiliate Disclosure</a></li>
+                        <li><a href="/legal/privacy">Privacy Policy</a></li>
+                        <li><a href="/legal/disclaimer">Medical Disclaimer</a></li>
+                        <li><a href="/legal/terms">Terms of Use</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© 2026 New Parent Reviews. All rights reserved. | 💝 As an Amazon Associate, we earn from qualifying purchases.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function checkFever() {
+            const age = document.getElementById('baby-age').value;
+            const temp = parseFloat(document.getElementById('temperature').value);
+            const unit = document.getElementById('temp-unit').value;
+            const method = document.getElementById('measurement-method').value;
+
+            // Check for additional symptoms
+            const hasLethargic = document.getElementById('symptom-lethargic').checked;
+            const hasRash = document.getElementById('symptom-rash').checked;
+            const hasBreathing = document.getElementById('symptom-breathing').checked;
+            const hasVomiting = document.getElementById('symptom-vomiting').checked;
+            const hasCrying = document.getElementById('symptom-crying').checked;
+
+            const hasSeriousSymptoms = hasLethargic || hasRash || hasBreathing || hasVomiting || hasCrying;
+
+            if (!age || !temp || !method) {
+                alert('Please fill in all required fields');
+                return;
+            }
+
+            // Convert to Fahrenheit if needed
+            let tempF = unit === 'C' ? (temp * 9/5) + 32 : temp;
+
+            // Adjust for measurement method (approximate to rectal equivalent)
+            if (method === 'armpit') tempF += 1;
+            if (method === 'oral') tempF += 0.5;
+            if (method === 'forehead') tempF += 0.5;
+
+            const resultBox = document.getElementById('result');
+            let result = '';
+            let severity = '';
+
+            // Emergency symptoms override
+            if (hasBreathing) {
+                severity = 'emergency';
+                result = `
+                    <h3>SEEK EMERGENCY CARE IMMEDIATELY</h3>
+                    <p>Difficulty breathing is a medical emergency regardless of temperature.</p>
+                    <ul>
+                        <li><strong>Call 911 or go to the ER immediately</strong></li>
+                        <li>Look for signs like rapid breathing, nostril flaring, or chest retractions</li>
+                        <li>Stay calm and keep your baby as comfortable as possible</li>
+                    </ul>
+                `;
+            }
+            // Newborn (0-3 months) - any fever is serious
+            else if (age === '0-3months' && tempF >= 100.4) {
+                severity = 'emergency';
+                result = `
+                    <h3>CALL YOUR PEDIATRICIAN IMMEDIATELY</h3>
+                    <p>For babies under 3 months, a fever of 100.4°F or higher requires immediate medical attention.</p>
+                    <ul>
+                        <li>Contact your pediatrician right away, even at night</li>
+                        <li>If you can't reach them, go to the emergency room</li>
+                        <li>Do NOT give fever medication without doctor's guidance at this age</li>
+                        <li>Continue feeding your baby normally</li>
+                    </ul>
+                `;
+            }
+            // High fever (104°F+) at any age
+            else if (tempF >= 104) {
+                severity = 'emergency';
+                result = `
+                    <h3>HIGH FEVER - SEEK MEDICAL CARE</h3>
+                    <p>A temperature of 104°F or higher needs prompt medical attention.</p>
+                    <ul>
+                        <li>Contact your pediatrician immediately or go to urgent care</li>
+                        <li>Give age-appropriate fever reducer if approved by your doctor</li>
+                        <li>Keep your baby hydrated</li>
+                        <li>Dress in light clothing</li>
+                    </ul>
+                `;
+            }
+            // Serious symptoms with any fever
+            else if (hasSeriousSymptoms && tempF >= 100.4) {
+                severity = 'warning';
+                let symptomList = [];
+                if (hasLethargic) symptomList.push('unusual sleepiness');
+                if (hasRash) symptomList.push('unexplained rash');
+                if (hasVomiting) symptomList.push('persistent vomiting');
+                if (hasCrying) symptomList.push('inconsolable crying');
+
+                result = `
+                    <h3>CONTACT YOUR PEDIATRICIAN</h3>
+                    <p>The combination of fever with ${symptomList.join(', ')} warrants medical evaluation.</p>
+                    <ul>
+                        <li>Call your pediatrician for guidance</li>
+                        <li>Monitor symptoms closely</li>
+                        <li>Keep your baby hydrated</li>
+                        <li>Be prepared to describe all symptoms to the doctor</li>
+                    </ul>
+                `;
+            }
+            // Moderate fever (102-103.9°F) in babies 3-6 months
+            else if (age === '3-6months' && tempF >= 102) {
+                severity = 'warning';
+                result = `
+                    <h3>MONITOR CLOSELY - CONSIDER CALLING DOCTOR</h3>
+                    <p>For babies 3-6 months, a fever of 102°F or higher should be evaluated.</p>
+                    <ul>
+                        <li>Contact your pediatrician, especially if fever lasts more than 24 hours</li>
+                        <li>With doctor approval, you may give infant acetaminophen</li>
+                        <li>Offer frequent feedings to keep baby hydrated</li>
+                        <li>Watch for worsening symptoms</li>
+                    </ul>
+                    <div class="product-recommendation">
+                        <h4>Helpful Products:</h4>
+                        <p><a href="/products/frida-baby-thermometer">Frida Baby Thermometer</a> - For accurate monitoring</p>
+                    </div>
+                `;
+            }
+            // Mild fever (100.4-101.9°F)
+            else if (tempF >= 100.4) {
+                severity = 'caution';
+                result = `
+                    <h3>LOW-GRADE FEVER - MONITOR AT HOME</h3>
+                    <p>A mild fever often indicates the immune system is fighting an infection.</p>
+                    <ul>
+                        <li>Keep your baby comfortable and hydrated</li>
+                        <li>Dress in light layers</li>
+                        <li>Monitor temperature every 4-6 hours</li>
+                        <li>For babies over 3 months, fever reducer may help if they're uncomfortable</li>
+                        <li>Call the doctor if fever lasts more than 24-48 hours or worsens</li>
+                    </ul>
+                    <div class="product-recommendation">
+                        <h4>Helpful Products:</h4>
+                        <p><a href="/products/frida-baby-thermometer">Frida Baby Thermometer</a> - For accurate monitoring</p>
+                    </div>
+                `;
+            }
+            // Normal temperature
+            else {
+                severity = 'normal';
+                result = `
+                    <h3>TEMPERATURE IS NORMAL</h3>
+                    <p>Your baby's temperature is within the normal range.</p>
+                    <ul>
+                        <li>Continue normal care and feeding</li>
+                        <li>If your baby seems unwell despite normal temperature, monitor for other symptoms</li>
+                        <li>Trust your instincts - if something seems wrong, contact your pediatrician</li>
+                    </ul>
+                `;
+            }
+            // Product recommendation + email capture
+            const productRec = `
+                <div class="tool-product-rec">
+                    <div class="rec-label">🌡️ What we actually use</div>
+                    <h4>Frida Baby 3-in-1 Thermometer</h4>
+                    <p class="rec-why">Rectal, oral &amp; underarm readings — fast and accurate when it matters most.</p>
+                    <div class="rec-links">
+                        <a href="https://www.amazon.com/dp/B08GVN8XJL?tag=newparentrevi-20" target="_blank" rel="nofollow noopener" class="btn-amazon">Check Price on Amazon →</a>
+                        <a href="/products/frida-baby-thermometer" class="btn-review">Read Our Full Review</a>
+                    </div>
+                    <p class="rec-disclosure">As an Amazon Associate we earn from qualifying purchases — at no extra cost to you.</p>
+                </div>
+                <div class="tool-email-capture">
+                    <h4>📬 Get our free baby care cheat sheet</h4>
+                    <p>Quick-reference guide for fevers, feeding amounts, sleep schedules &amp; more — straight to your inbox.</p>
+                    <form action="BEEHIIV_URL_PLACEHOLDER" method="POST" target="_blank">
+                        <input type="email" name="email" placeholder="Your email" required>
+                        <button type="submit">Send It Free →</button>
+                    </form>
+                </div>`;
+            result += productRec;
+
+
+            resultBox.innerHTML = result;
+            resultBox.className = 'result-box show ' + severity;
+            resultBox.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+            // Track in Google Analytics
+            if (typeof gtag === 'function') {
+                gtag('event', 'fever_check', {
+                    'event_category': 'Tools',
+                    'event_label': severity,
+                    'value': Math.round(tempF)
+                });
+            }
+        }
+    </script>
+
+
+
+    <div class="footer-disclosure">
+      <div class="container"><p>💝 <strong>Disclosure:</strong> This site contains affiliate links. <a href="/legal/disclosure">Read our full disclosure policy</a>.</p></div>
+    </div>
+
+<script>
+(function(){
+  var btn = document.querySelector('.menu-toggle');
+  var nav = document.querySelector('header nav');
+  if(!btn || !nav) return;
+  btn.addEventListener('click', function(){
+    var open = nav.classList.toggle('open');
+    btn.classList.toggle('open', open);
+    btn.setAttribute('aria-expanded', open);
+  });
+  // close on outside click
+  document.addEventListener('click', function(e){
+    if(!e.target.closest('header')){
+      nav.classList.remove('open');
+      btn.classList.remove('open');
+      btn.setAttribute('aria-expanded', false);
+    }
+  });
+})();
+</script>
+</body>
+</html>

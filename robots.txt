@@ -1,0 +1,10 @@
+User-agent: *
+Disallow: /blog-index-DRAFT.html
+Disallow: /comparisons-index-DRAFT.html
+Disallow: /UPLOAD-INSTRUCTIONS.md
+Disallow: /UPLOAD-INSTRUCTIONS-V2.md
+Disallow: /readme
+
+Allow: /
+
+Sitemap: https://newparentreviews.com/sitemap.xml

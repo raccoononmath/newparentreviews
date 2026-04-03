@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Page Not Found | New Parent Reviews</title>
+    <meta name="robots" content="noindex, nofollow">
+    <link rel="stylesheet" href="/styles.css">
+    <style>
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .error-container {
+            max-width: 600px;
+            background: white;
+            border-radius: 20px;
+            padding: 60px 40px;
+            text-align: center;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+        .error-code {
+            font-size: 120px;
+            font-weight: bold;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin: 0;
+            line-height: 1;
+        }
+        .error-emoji {
+            font-size: 80px;
+            margin-bottom: 20px;
+        }
+        .error-message {
+            font-size: 28px;
+            margin: 20px 0;
+            color: #1f2937;
+            font-weight: 600;
+        }
+        .error-description {
+            color: #6b7280;
+            font-size: 16px;
+            margin-bottom: 40px;
+        }
+        .error-links {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        .error-links a {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 14px 28px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            text-decoration: none;
+            border-radius: 10px;
+            font-weight: 600;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .error-links a:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
+        }
+        .error-links a.secondary {
+            background: white;
+            color: #667eea;
+            border: 2px solid #667eea;
+        }
+        .error-links a.secondary:hover {
+            background: #f9fafb;
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.2);
+        }
+        .helpful-links {
+            margin-top: 50px;
+            padding-top: 40px;
+            border-top: 2px solid #e5e7eb;
+        }
+        .helpful-links h3 {
+            font-size: 18px;
+            color: #1f2937;
+            margin-bottom: 20px;
+        }
+        .quick-links {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            text-align: left;
+        }
+        .quick-links a {
+            color: #667eea;
+            text-decoration: none;
+            padding: 10px;
+            border-radius: 8px;
+            transition: background 0.2s;
+            font-size: 14px;
+        }
+        .quick-links a:hover {
+            background: #f3f4f6;
+        }
+        @media (max-width: 640px) {
+            .error-container {
+                padding: 40px 24px;
+            }
+            .error-code {
+                font-size: 80px;
+            }
+            .error-emoji {
+                font-size: 60px;
+            }
+            .quick-links {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+    <script>
+        // Track 404 errors
+        if (typeof gtag !== 'undefined') {
+            gtag('event', 'page_not_found', {
+                'event_category': '404_error',
+                'event_label': window.location.pathname,
+                'referrer': document.referrer
+            });
+        }
+    </script>
+
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-TZV8W9VS35"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-TZV8W9VS35');
+    </script>
+    <!-- Google AdSense -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1019340861746623" crossorigin="anonymous"></script>
+  <link rel="canonical" href="https://newparentreviews.com/404">
+</head>
+<body>
+    <div class="error-container">
+        <div class="error-emoji">👶</div>
+        <h1 class="error-code">404</h1>
+        <p class="error-message">Oops! This Page Went Missing</p>
+        <p class="error-description">The page you're looking for doesn't exist or has been moved. Don't worry—we'll help you find what you need!</p>
+        
+        <div class="error-links">
+            <a href="/">
+                🏠 Go Home
+            </a>
+            <a href="/tools/" class="secondary">
+                🛠️ Free Tools
+            </a>
+        </div>
+
+        <div class="helpful-links">
+            <h3>Popular Pages</h3>
+            <div class="quick-links">
+                <a href="/products/grownsy-nasal-aspirator">→ Nasal Aspirator Review</a>
+                <a href="/products/halo-bassinest-swivel-sleeper-review">→ HALO Bassinet Review</a>
+                <a href="/tools/baby-fever-checker">→ Baby Fever Checker</a>
+                <a href="/tools/baby-sleep-schedule">→ Sleep Schedule Tool</a>
+                <a href="/blog-index">→ Survival Guide</a>
+                <a href="/deals">→ Current Deals</a>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // Log broken link for monitoring
+        console.error('404 Error:', {
+            path: window.location.pathname,
+            referrer: document.referrer,
+            timestamp: new Date().toISOString()
+        });
+    </script>
+
+    <div class="footer-disclosure">
+      <div class="container"><p>💝 <strong>Disclosure:</strong> This site contains affiliate links. <a href="/legal/disclosure">Read our full disclosure policy</a>.</p></div>
+    </div>
+</body>
+</html>

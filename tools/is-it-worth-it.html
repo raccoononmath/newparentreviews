@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Is that baby product actually worth buying? Enter any price and your hourly wage to see exactly how many hours of your life it costs. Free tool for parents.">
+    <meta name="keywords" content="is it worth it calculator, baby product worth it, price in hours calculator, should I buy this, baby gear worth the money">
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="Is It Worth It? — See Any Price in Hours of Your Life">
+    <meta property="og:description" content="Is the Snoo worth $1,695? Is that baby monitor worth it? See any price as hours of your life instead of dollars.">
+    <meta property="og:url" content="https://newparentreviews.com/tools/is-it-worth-it">
+    <meta property="og:image" content="https://newparentreviews.com/images/social-share.jpg">
+    <meta property="og:type" content="website">
+
+    <title>Is It Worth It? Baby Product Price Calculator</title>
+    <link rel="icon" type="image/png" href="../favicon.png">
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="canonical" href="https://newparentreviews.com/tools/is-it-worth-it">
+
+    <!-- Google AdSense -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1019340861746623" crossorigin="anonymous"></script>
+
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-TZV8W9VS35"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-TZV8W9VS35');
+    </script>
+
+    <style>
+        .tool-container { max-width: 700px; margin: 0 auto; padding: 2rem; }
+
+        .tool-header { text-align: center; margin-bottom: 2rem; }
+        .tool-header h1 { font-size: 2rem; color: #333; margin-bottom: 0.5rem; }
+        .tool-header p { color: #666; font-size: 1rem; }
+
+        /* Ad slot styling */
+        .ad-slot {
+            margin: 24px 0;
+            text-align: center;
+            min-height: 90px;
+        }
+
+        .calc-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            margin-bottom: 1.5rem;
+        }
+
+        .calc-card h2 {
+            font-size: 1.1rem;
+            color: #333;
+            margin-bottom: 1.5rem;
+            font-weight: 600;
+        }
+
+        .form-group { margin-bottom: 1.5rem; }
+
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: #333;
+            font-size: 0.95rem;
+        }
+
+        .form-group .label-hint {
+            font-weight: 400;
+            color: #888;
+            font-size: 0.85rem;
+        }
+
+        .input-wrap {
+            display: flex;
+            align-items: center;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            overflow: hidden;
+            max-width: 280px;
+            transition: border-color 0.2s;
+        }
+
+        .input-wrap:focus-within { border-color: #667eea; }
+
+        .input-prefix {
+            background: #f9fafb;
+            border-right: 2px solid #e0e0e0;
+            padding: 0.75rem 1rem;
+            font-size: 1.1rem;
+            color: #888;
+            font-weight: 600;
+        }
+
+        .input-wrap input {
+            border: none;
+            outline: none;
+            padding: 0.75rem 1rem;
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: #333;
+            width: 100%;
+            background: white;
+        }
+
+        .input-wrap input::placeholder { color: #ccc; font-weight: 400; }
+
+        .preset-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 10px;
+        }
+
+        .preset {
+            font-size: 0.8rem;
+            background: #f3f4f6;
+            border: 1.5px solid #e5e7eb;
+            border-radius: 20px;
+            padding: 4px 12px;
+            cursor: pointer;
+            color: #555;
+            font-weight: 500;
+            transition: all 0.15s;
+        }
+
+        .preset:hover, .preset.active {
+            background: #667eea;
+            border-color: #667eea;
+            color: white;
+        }
+
+        /* RESULT */
+        .result-section {
+            display: none;
+            animation: fadeUp 0.35s ease;
+        }
+
+        .result-section.show { display: block; }
+
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(12px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .result-hero {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 2rem;
+            border-radius: 16px;
+            text-align: center;
+            margin-bottom: 1rem;
+        }
+
+        .result-hero .r-eyebrow {
+            font-size: 0.8rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            opacity: 0.8;
+            margin-bottom: 8px;
+        }
+
+        .result-hero .r-hours {
+            font-size: clamp(64px, 14vw, 96px);
+            font-weight: 800;
+            line-height: 1;
+            margin-bottom: 4px;
+        }
+
+        .result-hero .r-unit {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            font-weight: 500;
+        }
+
+        .breakdown-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+            margin-bottom: 1rem;
+        }
+
+        @media (max-width: 500px) {
+            .breakdown-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+
+        .breakdown-item {
+            background: white;
+            border: 1.5px solid #e5e7eb;
+            border-radius: 10px;
+            padding: 14px 10px;
+            text-align: center;
+        }
+
+        .breakdown-item .b-val {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #333;
+            line-height: 1.2;
+        }
+
+        .breakdown-item .b-key {
+            font-size: 0.72rem;
+            color: #999;
+            margin-top: 4px;
+            line-height: 1.3;
+        }
+
+        .reality-box {
+            background: #f9fafb;
+            border-left: 4px solid #667eea;
+            border-radius: 0 10px 10px 0;
+            padding: 1rem 1.25rem;
+            font-size: 0.95rem;
+            line-height: 1.7;
+            color: #444;
+            margin-bottom: 1rem;
+        }
+
+        .reality-box strong { color: #667eea; }
+
+        .share-row {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-bottom: 1.5rem;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            transition: all 0.15s;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .btn:hover { transform: translateY(-1px); }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            box-shadow: 0 3px 10px rgba(102,126,234,0.3);
+        }
+
+        .btn-ghost {
+            background: white;
+            color: #555;
+            border: 1.5px solid #e0e0e0;
+        }
+
+        .btn-ghost:hover { border-color: #667eea; color: #667eea; }
+
+        /* Examples */
+        .examples-section { margin-top: 2rem; }
+
+        .examples-section h3 {
+            font-size: 1rem;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 4px;
+        }
+
+        .examples-section p {
+            font-size: 0.85rem;
+            color: #888;
+            margin-bottom: 1rem;
+        }
+
+        .examples-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+            gap: 10px;
+        }
+
+        .ex-card {
+            background: white;
+            border: 1.5px solid #e5e7eb;
+            border-radius: 10px;
+            padding: 14px 16px;
+            cursor: pointer;
+            transition: all 0.15s;
+        }
+
+        .ex-card:hover {
+            border-color: #667eea;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(102,126,234,0.12);
+        }
+
+        .ex-card .ex-emoji { font-size: 1.2rem; margin-bottom: 6px; }
+        .ex-card .ex-name { font-size: 0.75rem; color: #888; margin-bottom: 3px; }
+        .ex-card .ex-price { font-size: 1.2rem; font-weight: 700; color: #333; }
+        .ex-card .ex-hours { font-size: 0.78rem; color: #667eea; margin-top: 3px; min-height: 16px; font-weight: 500; }
+
+        .toast {
+            position: fixed;
+            bottom: 32px;
+            left: 50%;
+            transform: translateX(-50%) translateY(20px);
+            background: #333;
+            color: white;
+            font-size: 0.9rem;
+            font-weight: 500;
+            padding: 12px 24px;
+            border-radius: 8px;
+            opacity: 0;
+            transition: all 0.3s;
+            z-index: 200;
+            pointer-events: none;
+        }
+
+        .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+    </style>
+</head>
+<body>
+    <div class="disclosure-banner">
+        <div class="container">
+            <p>💝 <strong>Disclosure:</strong> This website contains affiliate links. <a href="/legal/disclosure">Read our full disclosure policy</a>.</p>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="logo">
+                <div class="logo-text"><a href="/">👶 New Parent Reviews</a></div>
+                <p class="tagline"><a href="/">Real Reviews from Real Parents</a></p>
+            </div>
+            <button class="menu-toggle" aria-label="Toggle menu" aria-expanded="false">
+                <span></span><span></span><span></span>
+            </button>
+            <nav>
+                <ul>
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/blog-index">Survival Guide</a></li>
+                    <li><a href="/comparisons-index">Comparisons</a></li>
+                    <li><a href="/tools/" class="active">Tools</a></li>
+                    <li><a href="/about">About</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="tool-container">
+        <a href="/tools/" class="back-link">← Back to All Tools</a>
+
+        <div class="tool-header">
+            <h1>💸 Is It Worth It?</h1>
+            <p>See any price as hours of your life — not just dollars</p>
+        </div>
+
+        <!-- Ad slot: top of page -->
+        <div class="ad-slot">
+            <ins class="adsbygoogle"
+                 style="display:block"
+                 data-ad-client="ca-pub-1019340861746623"
+                 data-ad-slot="auto"
+                 data-ad-format="auto"
+                 data-full-width-responsive="true"></ins>
+            <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+        </div>
+
+        <div class="calc-card">
+            <h2>Enter any price to see what it really costs you</h2>
+
+            <div class="form-group">
+                <label for="price">Item price <span class="label-hint">(what does it cost?)</span></label>
+                <div class="input-wrap">
+                    <span class="input-prefix">$</span>
+                    <input type="number" id="price" placeholder="399" min="0" inputmode="decimal" autocomplete="off">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="wage">Your hourly wage <span class="label-hint">(after tax, be honest)</span></label>
+                <div class="input-wrap">
+                    <span class="input-prefix">$</span>
+                    <input type="number" id="wage" placeholder="25" min="0" inputmode="decimal" autocomplete="off">
+                </div>
+                <div class="preset-row">
+                    <button class="preset" data-wage="12">$12/hr</button>
+                    <button class="preset" data-wage="20">$20/hr</button>
+                    <button class="preset" data-wage="35">$35/hr</button>
+                    <button class="preset" data-wage="50">$50/hr</button>
+                    <button class="preset" data-wage="75">$75/hr</button>
+                    <button class="preset" data-wage="100">$100/hr</button>
+                </div>
+            </div>
+
+            <!-- RESULT -->
+            <div class="result-section" id="resultSection">
+                <div class="result-hero">
+                    <div class="r-eyebrow">That purchase costs you</div>
+                    <div class="r-hours" id="hoursDisplay">—</div>
+                    <div class="r-unit">hours of your life</div>
+                </div>
+
+                <div class="breakdown-grid">
+                    <div class="breakdown-item">
+                        <div class="b-val" id="daysDisplay">—</div>
+                        <div class="b-key">working days</div>
+                    </div>
+                    <div class="breakdown-item">
+                        <div class="b-val" id="weeksDisplay">—</div>
+                        <div class="b-key">working weeks</div>
+                    </div>
+                    <div class="breakdown-item">
+                        <div class="b-val" id="minutesDisplay">—</div>
+                        <div class="b-key">minutes</div>
+                    </div>
+                    <div class="breakdown-item">
+                        <div class="b-val" id="coffeeDisplay">—</div>
+                        <div class="b-key">$6 coffees</div>
+                    </div>
+                </div>
+
+                <div class="reality-box" id="realityBox"></div>
+
+                <div class="share-row">
+                    <button class="btn btn-primary" onclick="copyResult()">📋 Copy & Share</button>
+                    <a class="btn btn-ghost" id="tweetBtn" href="#" target="_blank">Post on X →</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Ad slot: after calculator result -->
+        <div class="ad-slot" id="midAd" style="display:none;">
+            <ins class="adsbygoogle"
+                 style="display:block"
+                 data-ad-client="ca-pub-1019340861746623"
+                 data-ad-slot="auto"
+                 data-ad-format="auto"
+                 data-full-width-responsive="true"></ins>
+            <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+        </div>
+
+        <!-- Examples -->
+        <div class="examples-section">
+            <h3>Try these popular baby products</h3>
+            <p>Click any to fill in the price above — enter your wage first for instant results</p>
+            <div class="examples-grid" id="examplesGrid"></div>
+        </div>
+
+        <!-- Bottom ad -->
+        <div class="ad-slot" style="margin-top: 32px;">
+            <ins class="adsbygoogle"
+                 style="display:block"
+                 data-ad-client="ca-pub-1019340861746623"
+                 data-ad-slot="auto"
+                 data-ad-format="auto"
+                 data-full-width-responsive="true"></ins>
+            <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+        </div>
+
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h4>New Parent Reviews</h4>
+                    <p>Honest reviews from real parents.</p>
+                </div>
+                <div class="footer-column">
+                    <h4>Free Tools</h4>
+                    <ul>
+                        <li><a href="https://newparentreviews.com/tools/baby-fever-checker">Fever Checker</a></li>
+                        <li><a href="/tools/feeding-calculator">Feeding Calculator</a></li>
+                        <li><a href="/tools/baby-sleep-schedule">Sleep Schedule</a></li>
+                        <li><a href="https://newparentreviews.com/tools/is-it-worth-it">Is It Worth It?</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>Legal</h4>
+                    <ul>
+                        <li><a href="/legal/disclosure">Affiliate Disclosure</a></li>
+                        <li><a href="/legal/disclaimer">Medical Disclaimer</a></li>
+                        <li><a href="/legal/terms">Terms of Use</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© 2026 New Parent Reviews. All rights reserved. | 💝 As an Amazon Associate, we earn from qualifying purchases.</p>
+            </div>
+        </div>
+    </footer>
+
+    <div class="toast" id="toast">Copied! Go share it 🙌</div>
+
+    <script>
+    const items = [
+        { name: "Snoo Bassinet", price: 1695, emoji: "🛏️" },
+        { name: "Halo Bassinest", price: 280, emoji: "🌙" },
+        { name: "Baby Monitor", price: 329, emoji: "📷" },
+        { name: "Owlet Sock", price: 299, emoji: "🧦" },
+        { name: "Dyson V15", price: 749, emoji: "🌀" },
+        { name: "Frida Baby Kit", price: 45, emoji: "👃" },
+        { name: "Nanit Monitor", price: 399, emoji: "👁️" },
+        { name: "Ergobaby Carrier", price: 185, emoji: "🤱" },
+        { name: "Uppababy Vista", price: 1099, emoji: "🛒" },
+        { name: "4moms MamaRoo", price: 350, emoji: "🎠" },
+        { name: "Dock-a-Tot", price: 195, emoji: "🛸" },
+        { name: "Spectra Pump", price: 200, emoji: "🍼" },
+    ];
+
+    let wage = 0, price = 0;
+
+    function fmt(h) {
+        if (h < 0.1) return '< 0.1';
+        if (h >= 1000) return Math.round(h).toLocaleString();
+        if (h >= 10) return h.toFixed(1);
+        return h.toFixed(2);
+    }
+
+    function getReality(hours, price) {
+        const perDay = (price / 365).toFixed(2);
+        if (hours < 0.25) return `<strong>Under 15 minutes of work.</strong> Basically a rounding error — go for it.`;
+        if (hours < 1) return `<strong>Under an hour of work.</strong> Reasonable for something you'll use daily. The real question: will you actually use it?`;
+        if (hours < 4) return `<strong>A few hours of your life.</strong> If this saves you even ${Math.round(hours * 2)}+ hours of stress or work, it pays for itself. Used daily, it costs you just <strong>$${perDay}/day</strong> for a year.`;
+        if (hours < 8) return `<strong>Almost a full workday.</strong> Worth sleeping on before clicking buy. Will you still want this in a week?`;
+        if (hours < 40) return `<strong>A full work week.</strong> Real money. If it's going to be used for years (stroller, carrier, monitor), the cost per use gets small fast. If it's a phase-specific item — be honest with yourself.`;
+        return `<strong>More than a month of full-time work.</strong> This is a significant purchase. Make sure it solves a real problem for your family.`;
+    }
+
+    function calc() {
+        price = parseFloat(document.getElementById('price').value) || 0;
+        wage = parseFloat(document.getElementById('wage').value) || 0;
+
+        const section = document.getElementById('resultSection');
+        const midAd = document.getElementById('midAd');
+
+        if (price <= 0 || wage <= 0) {
+            section.classList.remove('show');
+            midAd.style.display = 'none';
+            refreshCards();
+            return;
+        }
+
+        const hours = price / wage;
+        const days = hours / 8;
+        const weeks = days / 5;
+        const minutes = hours * 60;
+        const coffees = price / 6;
+
+        document.getElementById('hoursDisplay').textContent = fmt(hours);
+        document.getElementById('daysDisplay').textContent = days < 1 ? `${(days*8).toFixed(1)}h` : days.toFixed(1);
+        document.getElementById('weeksDisplay').textContent = weeks < 0.1 ? '< 0.1' : weeks.toFixed(2);
+        document.getElementById('minutesDisplay').textContent = minutes < 1 ? '< 1' : Math.round(minutes).toLocaleString();
+        document.getElementById('coffeeDisplay').textContent = Math.round(coffees);
+        document.getElementById('realityBox').innerHTML = getReality(hours, price);
+
+        const tweet = `This $${price.toLocaleString()} item = ${fmt(hours)} hours of my life at $${wage}/hr. Is it worth it? → https://newparentreviews.com/tools/is-it-worth-it`;
+        document.getElementById('tweetBtn').href = `https://twitter.com/intent/tweet?text=${encodeURIComponent(tweet)}`;
+
+        section.classList.add('show');
+        midAd.style.display = 'block';
+        refreshCards();
+    }
+
+    function refreshCards() {
+        const grid = document.getElementById('examplesGrid');
+        grid.innerHTML = '';
+        items.forEach(item => {
+            const card = document.createElement('div');
+            card.className = 'ex-card';
+            const h = wage > 0 ? fmt(item.price / wage) + ' hrs' : '';
+            card.innerHTML = `
+                <div class="ex-emoji">${item.emoji}</div>
+                <div class="ex-name">${item.name}</div>
+                <div class="ex-price">$${item.price.toLocaleString()}</div>
+                <div class="ex-hours">${h}</div>
+            `;
+            card.addEventListener('click', () => {
+                document.getElementById('price').value = item.price;
+                calc();
+                document.querySelector('.calc-card').scrollIntoView({behavior: 'smooth', block: 'center'});
+            });
+            grid.appendChild(card);
+        });
+    }
+
+    function copyResult() {
+        const hours = price / wage;
+        const text = `This $${price.toLocaleString()} item costs me ${fmt(hours)} hours of my life (at $${wage}/hr after tax)\n\nSee what YOUR purchases really cost → https://newparentreviews.com/tools/is-it-worth-it`;
+        navigator.clipboard.writeText(text).then(() => {
+            const t = document.getElementById('toast');
+            t.classList.add('show');
+            setTimeout(() => t.classList.remove('show'), 2500);
+        });
+    }
+
+    document.querySelectorAll('.preset').forEach(btn => {
+        btn.addEventListener('click', () => {
+            document.querySelectorAll('.preset').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            document.getElementById('wage').value = btn.dataset.wage;
+            calc();
+        });
+    });
+
+    document.getElementById('price').addEventListener('input', calc);
+    document.getElementById('wage').addEventListener('input', () => {
+        document.querySelectorAll('.preset').forEach(b => b.classList.remove('active'));
+        calc();
+    });
+
+    refreshCards();
+    </script>
+
+    <div class="footer-disclosure">
+      <div class="container"><p>💝 <strong>Disclosure:</strong> This site contains affiliate links. <a href="/legal/disclosure">Read our full disclosure policy</a>.</p></div>
+    </div>
+
+<script>
+(function(){
+  var btn = document.querySelector('.menu-toggle');
+  var nav = document.querySelector('header nav');
+  if(!btn || !nav) return;
+  btn.addEventListener('click', function(){
+    var open = nav.classList.toggle('open');
+    btn.classList.toggle('open', open);
+    btn.setAttribute('aria-expanded', open);
+  });
+  // close on outside click
+  document.addEventListener('click', function(e){
+    if(!e.target.closest('header')){
+      nav.classList.remove('open');
+      btn.classList.remove('open');
+      btn.setAttribute('aria-expanded', false);
+    }
+  });
+})();
+</script>
+</body>
+</html>

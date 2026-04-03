@@ -1,0 +1,752 @@
+<!DOCTYPE html>
+
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Is your baby's stuffy nose serious? Free congestion checker for babies 0-24 months. Get instant relief recommendations and know when it's time to call your pediatrician.">
+    <meta name="keywords" content="baby congestion, baby stuffy nose, infant congestion, newborn congestion, baby can&#39;t breathe through nose, baby congested at night, clear baby nose, nasal aspirator">
+
+    <!-- Open Graph Tags -->
+    <meta property="og:title" content="Baby Congestion Checker — Is My Baby's Stuffy Nose Serious?">
+    <meta property="og:description" content="Free tool to assess baby congestion and get relief recommendations. Know when it&#39;s serious.">
+    <meta property="og:url" content="https://newparentreviews.com/tools/congestion-checker">
+    <meta property="og:image" content="https://newparentreviews.com/images/social-share.jpg">
+    <meta property="og:type" content="website">
+
+    <title>Baby Congestion Checker — Stuffy Nose: When to Worry | Free Tool</title>
+    <link rel="icon" type="image/png" href="../favicon.png">
+    <link rel="stylesheet" href="./Baby Congestion Checker - Is My Baby&#39;s Stuffy Nose Serious_ _ New Parent Reviews_files/styles.css">
+    <link rel="canonical" href="https://newparentreviews.com/tools/congestion-checker">
+
+    <!-- Google Analytics -->
+    <script async="" src="./Baby Congestion Checker - Is My Baby&#39;s Stuffy Nose Serious_ _ New Parent Reviews_files/js"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-TZV8W9VS35');
+    </script>
+
+    <!-- FAQ Schema -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+            {
+                "@type": "Question",
+                "name": "Why is my baby so congested?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Babies get congested easily because their nasal passages are tiny. Common causes include dry air, viral infections (colds), allergies, or irritants. Newborns are also 'obligate nose breathers' which means congestion affects them more than adults."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "How can I help my congested baby breathe better?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Use saline drops to loosen mucus, then use a nasal aspirator to gently suction it out. Run a cool-mist humidifier in the room. Keep baby's head slightly elevated during sleep. Offer extra fluids to stay hydrated."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "When should I worry about baby congestion?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Seek medical attention if your baby has difficulty breathing (nostril flaring, chest retractions), refuses to eat, has a fever over 100.4°F (for babies under 3 months), shows signs of dehydration, or if congestion lasts more than 10-14 days."
+                }
+            }
+        ]
+    }
+    </script>
+
+    <style>
+        .tool-container {
+            max-width: 700px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        .tool-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        .tool-header h1 {
+            font-size: 2rem;
+            color: #333;
+        }
+        .checker-form {
+            background: white;
+            padding: 2rem;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        }
+        .question-group {
+            margin-bottom: 1.5rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid #eee;
+        }
+        .question-group:last-of-type {
+            border-bottom: none;
+        }
+        .question-group label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+            color: #333;
+        }
+        .option-buttons {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+        .option-btn {
+            padding: 0.5rem 1.25rem;
+            border: 2px solid #e0e0e0;
+            border-radius: 25px;
+            background: white;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-size: 0.95rem;
+        }
+        .option-btn:hover {
+            border-color: #667eea;
+            background: #f8f9ff;
+        }
+        .option-btn.selected {
+            border-color: #667eea;
+            background: #667eea;
+            color: white;
+        }
+        .check-btn {
+            width: 100%;
+            padding: 1rem;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 1rem;
+        }
+        .check-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+        }
+        .result-box {
+            margin-top: 2rem;
+            padding: 1.5rem;
+            border-radius: 12px;
+            display: none;
+        }
+        .result-box.show { display: block; }
+        .result-box.emergency {
+            background: linear-gradient(135deg, #ff6b6b 0%, #ee5a5a 100%);
+            color: white;
+        }
+        .result-box.warning {
+            background: linear-gradient(135deg, #f39c12 0%, #e67e22 100%);
+            color: white;
+        }
+        .result-box.mild {
+            background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
+            color: white;
+        }
+        .result-box h3 { margin-bottom: 1rem; }
+        .result-box ul { margin: 1rem 0; padding-left: 1.5rem; }
+        .result-box li { margin-bottom: 0.5rem; }
+        .product-box {
+            background: rgba(255,255,255,0.2);
+            padding: 1rem;
+            border-radius: 8px;
+            margin-top: 1.5rem;
+        }
+        .product-box h4 { margin-bottom: 0.75rem; }
+        .product-box a {
+            color: white;
+            text-decoration: underline;
+        }
+        .relief-steps {
+            background: #e8f5e9;
+            padding: 1.5rem;
+            border-radius: 12px;
+            margin-top: 2rem;
+        }
+        .relief-steps h3 {
+            color: #2e7d32;
+            margin-bottom: 1rem;
+        }
+        .relief-steps ol {
+            margin: 0;
+            padding-left: 1.5rem;
+        }
+        .relief-steps li {
+            margin-bottom: 0.75rem;
+            color: #333;
+        }
+        .faq-section { margin-top: 3rem; }
+        .faq-item {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+        .faq-item h3 { font-size: 1.1rem; color: #333; margin-bottom: 0.5rem; }
+        .faq-item p { color: #666; line-height: 1.6; }
+        .back-link {
+            display: inline-block;
+            margin-bottom: 1rem;
+            color: #667eea;
+            text-decoration: none;
+        }
+        .disclaimer-box {
+            background: #fff3cd;
+            border: 1px solid #ffc107;
+            padding: 1rem;
+            border-radius: 8px;
+            margin-top: 2rem;
+            font-size: 0.9rem;
+        }
+    
+        /* Product Recommendation Styles */
+        .tool-product-rec {
+            margin-top: 1.5rem;
+            padding: 1.25rem;
+            background: linear-gradient(135deg, #f8fffe 0%, #f0faf7 100%);
+            border: 2px solid #d4edda;
+            border-radius: 12px;
+            text-align: left;
+        }
+        .tool-product-rec .rec-label {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: #28a745;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+        .tool-product-rec h4 {
+            margin: 0 0 0.4rem 0;
+            font-size: 1.05rem;
+            color: #333;
+        }
+        .tool-product-rec .rec-why {
+            font-size: 0.9rem;
+            color: #555;
+            margin-bottom: 0.75rem;
+            line-height: 1.4;
+        }
+        .tool-product-rec .rec-links {
+            display: flex;
+            gap: 0.75rem;
+            flex-wrap: wrap;
+        }
+        .tool-product-rec .rec-links a {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.2s;
+        }
+        .tool-product-rec .rec-links .btn-amazon {
+            background: #ff9900;
+            color: #111;
+        }
+        .tool-product-rec .rec-links .btn-amazon:hover {
+            background: #e88b00;
+        }
+        .tool-product-rec .rec-links .btn-review {
+            background: #fff;
+            color: #2a7ae2;
+            border: 1px solid #2a7ae2;
+        }
+        .tool-product-rec .rec-links .btn-review:hover {
+            background: #f0f6ff;
+        }
+        .tool-product-rec .rec-disclosure {
+            font-size: 0.7rem;
+            color: #999;
+            margin-top: 0.6rem;
+        }
+        .tool-product-rec + .tool-product-rec {
+            margin-top: 0.75rem;
+        }
+        /* Email capture after tool result */
+        .tool-email-capture {
+            margin-top: 1.5rem;
+            padding: 1.25rem;
+            background: #fff9e6;
+            border: 2px solid #ffeaa7;
+            border-radius: 12px;
+            text-align: center;
+        }
+        .tool-email-capture h4 {
+            margin: 0 0 0.5rem 0;
+            font-size: 1rem;
+            color: #333;
+        }
+        .tool-email-capture p {
+            font-size: 0.85rem;
+            color: #666;
+            margin-bottom: 0.75rem;
+        }
+        .tool-email-capture form {
+            display: flex;
+            gap: 0.5rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        .tool-email-capture input[type="email"] {
+            padding: 0.5rem 0.75rem;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            min-width: 220px;
+        }
+        .tool-email-capture button {
+            padding: 0.5rem 1rem;
+            background: #2a7ae2;
+            color: #fff;
+            border: none;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+    </style>
+    <!-- Google AdSense -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1019340861746623" crossorigin="anonymous"></script>
+
+    <style>
+    .medical-disclaimer-box {
+        background: #fff8e1;
+        border-left: 4px solid #f59e0b;
+        border-radius: 0 8px 8px 0;
+        padding: 1rem 1.25rem;
+        margin: 1rem 0 1.5rem;
+        font-size: 0.875rem;
+        line-height: 1.5;
+        color: #44403c;
+    }
+    .medical-disclaimer-box p { margin: 0 0 0.5rem; }
+    .medical-disclaimer-box p:first-child { font-size: 1rem; }
+    .medical-disclaimer-box a { color: #b45309; text-decoration: underline; }
+    </style>
+</head>
+<body>
+    <!-- Disclosure Banner -->
+    <div class="disclosure-banner">
+        <div class="container">
+            <p><strong>Medical Disclaimer:</strong> This tool provides general educational information only and is not intended to diagnose, treat, cure, or prevent any condition. <a href="/legal/disclaimer">Read full disclaimer</a>.</p>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="logo">
+                <div class="logo-text"><a href="/">👶 New Parent Reviews</a></div>
+                <p class="tagline">Real Reviews from Real Parents</p>
+            </div>
+            <button class="menu-toggle" aria-label="Toggle menu" aria-expanded="false">
+                <span></span><span></span><span></span>
+            </button>
+            <nav>
+                <ul>
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/blog-index">Survival Guide</a></li>
+                    <li><a href="/comparisons-index">Comparisons</a></li>
+                    <li><a href="/tools/" class="active">Tools</a></li>
+                    <li><a href="/about">About</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="tool-container">
+    <div class="medical-disclaimer-box" role="note" aria-label="Medical disclaimer">
+        <p><strong>⚕️ For Informational Purposes Only</strong></p>
+        <p>This tool provides <strong>general educational information only</strong> and is <strong>not intended to diagnose, treat, cure, or prevent any medical condition.</strong> Results are based on general guidelines and do not account for your baby's individual health history.</p>
+        <p>Always consult a qualified healthcare professional or your pediatrician before making any medical decisions. <strong>If your baby is in distress or you suspect a medical emergency, call 911 or go to the nearest emergency room immediately.</strong></p>
+        <p style="margin:0; font-size: 0.8rem; color: #888;">By using this tool you acknowledge it is for informational purposes only. <a href="/legal/disclaimer">Read our full medical disclaimer.</a></p>
+    </div>
+
+        <a href="/tools/" class="back-link">← Back to All Tools</a>
+
+        <div class="tool-header">
+            <h1>Baby Congestion Checker</h1>
+            <p>Answer a few questions to get personalized relief recommendations</p>
+        </div>
+
+        <div class="checker-form">
+            <div class="question-group">
+                <label>Baby's Age</label>
+                <div class="option-buttons" data-question="age">
+                    <button class="option-btn" data-value="0-3months">0-3 months</button>
+                    <button class="option-btn" data-value="3-12months">3-12 months</button>
+                    <button class="option-btn" data-value="12+months">12+ months</button>
+                </div>
+            </div>
+
+            <div class="question-group">
+                <label>How long has the congestion lasted?</label>
+                <div class="option-buttons" data-question="duration">
+                    <button class="option-btn" data-value="1-2days">1-2 days</button>
+                    <button class="option-btn" data-value="3-7days">3-7 days</button>
+                    <button class="option-btn" data-value="7-14days">7-14 days</button>
+                    <button class="option-btn" data-value="14+days">14+ days</button>
+                </div>
+            </div>
+
+            <div class="question-group">
+                <label>Is your baby having trouble breathing?</label>
+                <div class="option-buttons" data-question="breathing">
+                    <button class="option-btn" data-value="no">No, just stuffy</button>
+                    <button class="option-btn" data-value="mild">Some noisy breathing</button>
+                    <button class="option-btn" data-value="yes">Rapid/labored breathing</button>
+                </div>
+            </div>
+
+            <div class="question-group">
+                <label>Is your baby feeding normally?</label>
+                <div class="option-buttons" data-question="feeding">
+                    <button class="option-btn" data-value="yes">Yes, feeding fine</button>
+                    <button class="option-btn" data-value="some">Eating less than usual</button>
+                    <button class="option-btn" data-value="no">Refusing to eat</button>
+                </div>
+            </div>
+
+            <div class="question-group">
+                <label>Does your baby have a fever?</label>
+                <div class="option-buttons" data-question="fever">
+                    <button class="option-btn" data-value="no">No fever</button>
+                    <button class="option-btn" data-value="low">Low fever (under 101°F)</button>
+                    <button class="option-btn" data-value="high">High fever (101°F+)</button>
+                </div>
+            </div>
+
+            <div class="question-group">
+                <label>What color is the mucus? (if visible)</label>
+                <div class="option-buttons" data-question="mucus">
+                    <button class="option-btn" data-value="clear">Clear</button>
+                    <button class="option-btn" data-value="white">White/cloudy</button>
+                    <button class="option-btn" data-value="yellow">Yellow</button>
+                    <button class="option-btn" data-value="green">Green</button>
+                </div>
+            </div>
+
+            <button class="check-btn" onclick="checkCongestion()">Get Relief Recommendations</button>
+
+            <div id="result" class="result-box"></div>
+
+            <div class="disclaimer-box">
+                <strong>Important:</strong> This tool provides general educational information only. Always consult your pediatrician for medical advice, especially for babies under 3 months or if symptoms worsen.
+            </div>
+        </div>
+
+        <!-- Relief Steps (always visible) -->
+        <div class="relief-steps">
+            <h3>General Congestion Relief Steps</h3>
+            <ol>
+                <li><strong>Saline drops:</strong> Put 2-3 drops in each nostril to loosen mucus</li>
+                <li><strong>Wait 30-60 seconds</strong> for the saline to work</li>
+                <li><strong>Use a nasal aspirator</strong> to gently suction out mucus</li>
+                <li><strong>Run a humidifier</strong> in baby's room (cool mist recommended)</li>
+                <li><strong>Elevate the head</strong> slightly during sleep (roll a towel under the mattress, not pillow)</li>
+                <li><strong>Offer extra fluids</strong> to keep mucus thin</li>
+            </ol>
+        </div>
+
+        <!-- FAQ Section -->
+        <section class="faq-section">
+            <h2>Frequently Asked Questions</h2>
+
+            <div class="faq-item">
+                <h3>Why is my baby so congested at night?</h3>
+                <p>Lying flat makes mucus pool in the nasal passages. Additionally, dry indoor air (especially with heating) can worsen congestion. Try using a humidifier and slightly elevating the head of the crib mattress.</p>
+            </div>
+
+            <div class="faq-item">
+                <h3>Can I use a nasal aspirator on my newborn?</h3>
+                <p>Yes! Nasal aspirators are safe for newborns and highly recommended. Electric aspirators like the GROWNSY are gentle and effective. Always use saline drops first to loosen the mucus, then suction. Don't overdo it - 2-3 times per day is usually sufficient.</p>
+            </div>
+
+            <div class="faq-item">
+                <h3>Is green mucus a sign of infection?</h3>
+                <p>Not necessarily. Mucus color changes as the immune system fights off irritants. Green or yellow mucus is common during a cold and doesn't automatically mean bacterial infection. However, if it's accompanied by high fever or lasts more than 10-14 days, consult your pediatrician.</p>
+            </div>
+
+            <div class="faq-item">
+                <h3>When is baby congestion an emergency?</h3>
+                <p>Seek immediate care if you notice: nostril flaring, chest retractions (skin pulling in between ribs), blue lips or fingernails, extremely rapid breathing, or if your baby is under 3 months with fever. These could indicate respiratory distress.</p>
+            </div>
+        </section>
+
+        <!-- Product Recommendations -->
+        <section style="margin-top: 3rem; background: #f8f9fa; padding: 2rem; border-radius: 12px;">
+            <h2>Products That Help With Congestion</h2>
+            <p style="margin-bottom: 1.5rem;">These parent-tested products can help clear your baby's congestion:</p>
+            <div style="display: grid; gap: 1rem;">
+                <a href="https://newparentreviews.com/products/grownsy-nasal-aspirator" style="display: flex; gap: 1rem; padding: 1rem; background: white; border-radius: 8px; text-decoration: none; color: inherit; align-items: center;">
+                    <span style="font-size: 2rem;">😤</span>
+                    <div>
+                        <strong>GROWNSY Electric Nasal Aspirator</strong>
+                        <p style="margin: 0; color: #666; font-size: 0.9rem;">Our top pick. Music &amp; lights keep baby calm during suctioning.</p>
+                    </div>
+                </a>
+                <a href="#" style="display: flex; gap: 1rem; padding: 1rem; background: white; border-radius: 8px; text-decoration: none; color: inherit; align-items: center;">
+                    <span style="font-size: 2rem;">📖</span>
+                    <div>
+                        <strong>Complete Guide: Clearing Baby's Stuffy Nose</strong>
+                        <p style="margin: 0; color: #666; font-size: 0.9rem;">Step-by-step instructions and tips from real parents.</p>
+                    </div>
+                </a>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h4>New Parent Reviews</h4>
+                    <p>Honest reviews from real parents.</p>
+                </div>
+                <div class="footer-column">
+                    <h4>Free Tools</h4>
+                    <ul>
+                        <li><a href="https://newparentreviews.com/tools/baby-fever-checker">Fever Checker</a></li>
+                        <li><a href="https://newparentreviews.com/tools/congestion-checker">Congestion Checker</a></li>
+                        <li><a href="/tools/feeding-calculator">Feeding Calculator</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>Legal</h4>
+                    <ul>
+                        <li><a href="/legal/disclosure">Affiliate Disclosure</a></li>
+                        <li><a href="/legal/disclaimer">Medical Disclaimer</a></li>
+                        <li><a href="/legal/terms">Terms of Use</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© 2026 New Parent Reviews. All rights reserved. | 💝 As an Amazon Associate, we earn from qualifying purchases.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Handle option button selection
+        document.querySelectorAll('.option-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const group = this.closest('.option-buttons');
+                group.querySelectorAll('.option-btn').forEach(b => b.classList.remove('selected'));
+                this.classList.add('selected');
+            });
+        });
+
+        function getAnswer(question) {
+            const group = document.querySelector(`[data-question="${question}"]`);
+            const selected = group?.querySelector('.selected');
+            return selected?.dataset.value || null;
+        }
+
+        function checkCongestion() {
+            const age = getAnswer('age');
+            const duration = getAnswer('duration');
+            const breathing = getAnswer('breathing');
+            const feeding = getAnswer('feeding');
+            const fever = getAnswer('fever');
+            const mucus = getAnswer('mucus');
+
+            if (!age || !duration || !breathing || !feeding || !fever) {
+                alert('Please answer all questions to get your results');
+                return;
+            }
+
+            const resultBox = document.getElementById('result');
+            let result = '';
+            let severity = 'mild';
+
+            // Emergency conditions
+            if (breathing === 'yes') {
+                severity = 'emergency';
+                result = `
+                    <h3>SEEK MEDICAL CARE IMMEDIATELY</h3>
+                    <p>Rapid or labored breathing needs immediate medical attention.</p>
+                    <ul>
+                        <li><strong>Call your pediatrician or go to the ER now</strong></li>
+                        <li>Look for: nostril flaring, chest retractions, or blue coloring</li>
+                        <li>Keep baby calm and upright if possible</li>
+                        <li>Do not wait to see if it improves</li>
+                    </ul>
+                `;
+            }
+            // High risk for newborns
+            else if (age === '0-3months' && (fever === 'high' || fever === 'low')) {
+                severity = 'emergency';
+                result = `
+                    <h3>CONTACT YOUR PEDIATRICIAN</h3>
+                    <p>For babies under 3 months, congestion with fever needs medical evaluation.</p>
+                    <ul>
+                        <li>Call your pediatrician even if after hours</li>
+                        <li>Newborns are obligate nose breathers - congestion affects them more</li>
+                        <li>While waiting: use saline drops and gentle bulb suctioning</li>
+                        <li>Keep baby hydrated with frequent feedings</li>
+                    </ul>
+                `;
+            }
+            // Refusing to eat
+            else if (feeding === 'no') {
+                severity = 'warning';
+                result = `
+                    <h3>CALL YOUR PEDIATRICIAN TODAY</h3>
+                    <p>When babies refuse to eat due to congestion, they can become dehydrated quickly.</p>
+                    <ul>
+                        <li>Contact your pediatrician for guidance</li>
+                        <li>Clear nose before every feeding attempt</li>
+                        <li>Try smaller, more frequent feedings</li>
+                        <li>Watch for signs of dehydration (fewer wet diapers, dry mouth)</li>
+                    </ul>
+                    <div class="product-box">
+                        <h4>Recommended:</h4>
+                        <p><a href="/products/grownsy-nasal-aspirator">GROWNSY Electric Nasal Aspirator</a> - Clear congestion before feeds</p>
+                    </div>
+                `;
+            }
+            // Long duration
+            else if (duration === '14+days') {
+                severity = 'warning';
+                result = `
+                    <h3>TIME TO SEE THE DOCTOR</h3>
+                    <p>Congestion lasting more than 2 weeks should be evaluated.</p>
+                    <ul>
+                        <li>Schedule an appointment with your pediatrician</li>
+                        <li>Could be allergies, sinus infection, or other cause</li>
+                        <li>Continue comfort measures until your visit</li>
+                        <li>Note any patterns (worse at certain times, places)</li>
+                    </ul>
+                `;
+            }
+            // High fever
+            else if (fever === 'high') {
+                severity = 'warning';
+                result = `
+                    <h3>CONTACT YOUR PEDIATRICIAN</h3>
+                    <p>High fever with congestion warrants a call to your doctor.</p>
+                    <ul>
+                        <li>Call your pediatrician for guidance</li>
+                        <li>Give age-appropriate fever reducer if recommended</li>
+                        <li>Keep baby hydrated</li>
+                        <li>Use saline and suction to help breathing</li>
+                    </ul>
+                    <div class="product-box">
+                        <h4>Also check:</h4>
+                        <p><a href="/tools/baby-fever-checker">Baby Fever Checker</a> for fever-specific guidance</p>
+                    </div>
+                `;
+            }
+            // Mild/manageable at home
+            else {
+                severity = 'mild';
+                let tips = ['Use saline drops 2-3 times daily', 'Suction with a nasal aspirator after saline'];
+
+                if (breathing === 'mild') {
+                    tips.push('Elevate crib mattress slightly');
+                    tips.push('Run a cool-mist humidifier');
+                }
+                if (feeding === 'some') {
+                    tips.push('Clear nose before each feeding');
+                    tips.push('Offer smaller, more frequent meals');
+                }
+                if (mucus === 'green' || mucus === 'yellow') {
+                    tips.push('This is normal during a cold');
+                    tips.push('Call doctor if fever develops or symptoms worsen');
+                }
+
+                tips.push('Monitor for worsening symptoms');
+
+                result = `
+                    <h3>MANAGEABLE AT HOME</h3>
+                    <p>Your baby's congestion appears mild and can likely be treated at home.</p>
+                    <h4>Recommended Steps:</h4>
+                    <ul>
+                        ${tips.map(tip => `<li>${tip}</li>`).join('')}
+                    </ul>
+                    <div class="product-box">
+                        <h4>Products That Help:</h4>
+                        <p><a href="/products/grownsy-nasal-aspirator">GROWNSY Electric Nasal Aspirator</a> - Clears congestion quickly with soothing music</p>
+                        <p style="margin-top: 0.5rem;"><a href="#">Read our complete congestion relief guide</a></p>
+                    </div>
+                `;
+            }
+            // Product recommendation + email capture
+            const productRec = `
+                <div class="tool-product-rec">
+                    <div class="rec-label">😤 What we actually use</div>
+                    <h4>GROWNSY Electric Nasal Aspirator</h4>
+                    <p class="rec-why">Music + lights distract baby while powerful suction clears congestion in seconds.</p>
+                    <div class="rec-links">
+                        <a href="https://www.amazon.com/dp/B08CMWHD3B?tag=newparentrevi-20" target="_blank" rel="nofollow noopener" class="btn-amazon">Check Price on Amazon →</a>
+                        <a href="/products/grownsy-nasal-aspirator" class="btn-review">Read Our Full Review</a>
+                    </div>
+                    <p class="rec-disclosure">As an Amazon Associate we earn from qualifying purchases — at no extra cost to you.</p>
+                </div>
+                <div class="tool-email-capture">
+                    <h4>📬 Get our free baby care cheat sheet</h4>
+                    <p>Quick-reference guide for fevers, feeding amounts, sleep schedules &amp; more — straight to your inbox.</p>
+                    <form action="BEEHIIV_URL_PLACEHOLDER" method="POST" target="_blank">
+                        <input type="email" name="email" placeholder="Your email" required>
+                        <button type="submit">Send It Free →</button>
+                    </form>
+                </div>`;
+            result += productRec;
+
+
+            resultBox.innerHTML = result;
+            resultBox.className = 'result-box show ' + severity;
+            resultBox.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+            // Track in Analytics
+            if (typeof gtag === 'function') {
+                gtag('event', 'congestion_check', {
+                    'event_category': 'Tools',
+                    'event_label': severity
+                });
+            }
+        }
+    </script>
+
+
+
+    <div class="footer-disclosure">
+      <div class="container"><p>💝 <strong>Disclosure:</strong> This site contains affiliate links. <a href="/legal/disclosure">Read our full disclosure policy</a>.</p></div>
+    </div>
+
+<script>
+(function(){
+  var btn = document.querySelector('.menu-toggle');
+  var nav = document.querySelector('header nav');
+  if(!btn || !nav) return;
+  btn.addEventListener('click', function(){
+    var open = nav.classList.toggle('open');
+    btn.classList.toggle('open', open);
+    btn.setAttribute('aria-expanded', open);
+  });
+  // close on outside click
+  document.addEventListener('click', function(e){
+    if(!e.target.closest('header')){
+      nav.classList.remove('open');
+      btn.classList.remove('open');
+      btn.setAttribute('aria-expanded', false);
+    }
+  });
+})();
+</script>
+</body>
+</html>

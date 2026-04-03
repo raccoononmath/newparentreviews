@@ -1,0 +1,710 @@
+<!DOCTYPE html>
+
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Free baby growth percentile calculator using WHO growth charts. Enter your baby's weight, length, and age to see their percentile ranking and track healthy development.">
+    <meta name="keywords" content="baby growth chart, baby percentile calculator, infant weight percentile, baby growth tracker, WHO growth chart, baby height percentile, newborn growth chart">
+
+    <!-- Open Graph Tags -->
+    <meta property="og:title" content="Baby Growth Percentile Calculator — WHO Growth Charts">
+    <meta property="og:description" content="Track your baby&#39;s growth against WHO percentile charts. Free calculator for weight and length.">
+    <meta property="og:url" content="https://newparentreviews.com/tools/growth-percentile-calculator">
+    <meta property="og:image" content="https://newparentreviews.com/images/social-share.jpg">
+    <meta property="og:type" content="website">
+
+    <title>Baby Growth Percentile Calculator — WHO Chart by Weight & Length</title>
+    <link rel="icon" type="image/png" href="../favicon.png">
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="canonical" href="https://newparentreviews.com/tools/growth-percentile-calculator">
+
+    <!-- Google Analytics -->
+    <script async="" src="./Baby Growth Percentile Calculator _ WHO Growth Charts _ New Parent Reviews_files/js"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-TZV8W9VS35');
+    </script>
+
+    <style>
+        .tool-container { max-width: 700px; margin: 0 auto; padding: 2rem; }
+        .tool-header { text-align: center; margin-bottom: 2rem; }
+        .tool-header h1 { font-size: 2rem; color: #333; }
+        .calculator-form {
+            background: white;
+            padding: 2rem;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        }
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+        .form-group { margin-bottom: 1.5rem; }
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: #333;
+        }
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 0.75rem;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 1rem;
+        }
+        .input-with-unit {
+            display: flex;
+            gap: 0.5rem;
+        }
+        .input-with-unit input { flex: 1; }
+        .input-with-unit select { width: 80px; }
+        .calc-btn {
+            width: 100%;
+            padding: 1rem;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+        }
+        .calc-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+        }
+        .result-section {
+            margin-top: 2rem;
+            display: none;
+        }
+        .result-section.show { display: block; }
+        .result-cards {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        .result-card {
+            padding: 1.5rem;
+            border-radius: 12px;
+            text-align: center;
+            color: white;
+        }
+        .result-card.weight { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
+        .result-card.length { background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%); }
+        .percentile-value {
+            font-size: 2.5rem;
+            font-weight: bold;
+        }
+        .percentile-label { opacity: 0.9; margin-top: 0.25rem; }
+        .percentile-bar {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            margin-bottom: 1rem;
+        }
+        .bar-label {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+        .bar-container {
+            height: 30px;
+            background: #f0f0f0;
+            border-radius: 15px;
+            position: relative;
+            overflow: hidden;
+        }
+        .bar-fill {
+            height: 100%;
+            border-radius: 15px;
+            transition: width 0.5s ease;
+        }
+        .bar-fill.weight { background: linear-gradient(90deg, #667eea, #764ba2); }
+        .bar-fill.length { background: linear-gradient(90deg, #11998e, #38ef7d); }
+        .bar-marker {
+            position: absolute;
+            top: -5px;
+            width: 4px;
+            height: 40px;
+            background: #333;
+            border-radius: 2px;
+            transform: translateX(-50%);
+        }
+        .bar-zones {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.75rem;
+            color: #666;
+            margin-top: 0.25rem;
+        }
+        .interpretation {
+            background: #f8f9fa;
+            padding: 1.5rem;
+            border-radius: 12px;
+        }
+        .interpretation h3 { margin-bottom: 1rem; color: #333; }
+        .interpretation p { color: #666; line-height: 1.6; margin-bottom: 1rem; }
+        .interpretation ul { padding-left: 1.5rem; color: #666; }
+        .interpretation li { margin-bottom: 0.5rem; }
+        .faq-section { margin-top: 3rem; }
+        .faq-item {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+        .faq-item h3 { font-size: 1.1rem; color: #333; margin-bottom: 0.5rem; }
+        .faq-item p { color: #666; line-height: 1.6; }
+        .back-link {
+            display: inline-block;
+            margin-bottom: 1rem;
+            color: #667eea;
+            text-decoration: none;
+        }
+        .note-box {
+            background: #e3f2fd;
+            border: 1px solid #2196f3;
+            padding: 1rem;
+            border-radius: 8px;
+            margin-top: 1.5rem;
+            font-size: 0.9rem;
+        }
+    
+        /* Product Recommendation Styles */
+        .tool-product-rec {
+            margin-top: 1.5rem;
+            padding: 1.25rem;
+            background: linear-gradient(135deg, #f8fffe 0%, #f0faf7 100%);
+            border: 2px solid #d4edda;
+            border-radius: 12px;
+            text-align: left;
+        }
+        .tool-product-rec .rec-label {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: #28a745;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+        .tool-product-rec h4 {
+            margin: 0 0 0.4rem 0;
+            font-size: 1.05rem;
+            color: #333;
+        }
+        .tool-product-rec .rec-why {
+            font-size: 0.9rem;
+            color: #555;
+            margin-bottom: 0.75rem;
+            line-height: 1.4;
+        }
+        .tool-product-rec .rec-links {
+            display: flex;
+            gap: 0.75rem;
+            flex-wrap: wrap;
+        }
+        .tool-product-rec .rec-links a {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.2s;
+        }
+        .tool-product-rec .rec-links .btn-amazon {
+            background: #ff9900;
+            color: #111;
+        }
+        .tool-product-rec .rec-links .btn-amazon:hover {
+            background: #e88b00;
+        }
+        .tool-product-rec .rec-links .btn-review {
+            background: #fff;
+            color: #2a7ae2;
+            border: 1px solid #2a7ae2;
+        }
+        .tool-product-rec .rec-links .btn-review:hover {
+            background: #f0f6ff;
+        }
+        .tool-product-rec .rec-disclosure {
+            font-size: 0.7rem;
+            color: #999;
+            margin-top: 0.6rem;
+        }
+        .tool-product-rec + .tool-product-rec {
+            margin-top: 0.75rem;
+        }
+        /* Email capture after tool result */
+        .tool-email-capture {
+            margin-top: 1.5rem;
+            padding: 1.25rem;
+            background: #fff9e6;
+            border: 2px solid #ffeaa7;
+            border-radius: 12px;
+            text-align: center;
+        }
+        .tool-email-capture h4 {
+            margin: 0 0 0.5rem 0;
+            font-size: 1rem;
+            color: #333;
+        }
+        .tool-email-capture p {
+            font-size: 0.85rem;
+            color: #666;
+            margin-bottom: 0.75rem;
+        }
+        .tool-email-capture form {
+            display: flex;
+            gap: 0.5rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        .tool-email-capture input[type="email"] {
+            padding: 0.5rem 0.75rem;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            min-width: 220px;
+        }
+        .tool-email-capture button {
+            padding: 0.5rem 1rem;
+            background: #2a7ae2;
+            color: #fff;
+            border: none;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+    </style>
+    <!-- Google AdSense -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1019340861746623" crossorigin="anonymous"></script>
+
+    <style>
+    .medical-disclaimer-box {
+        background: #fff8e1;
+        border-left: 4px solid #f59e0b;
+        border-radius: 0 8px 8px 0;
+        padding: 1rem 1.25rem;
+        margin: 1rem 0 1.5rem;
+        font-size: 0.875rem;
+        line-height: 1.5;
+        color: #44403c;
+    }
+    .medical-disclaimer-box p { margin: 0 0 0.5rem; }
+    .medical-disclaimer-box p:first-child { font-size: 1rem; }
+    .medical-disclaimer-box a { color: #b45309; text-decoration: underline; }
+    </style>
+</head>
+<body>
+    <!-- Disclosure Banner -->
+    <div class="disclosure-banner">
+        <div class="container">
+            <p><strong>Note:</strong> This calculator uses WHO growth chart data. Your pediatrician is the best source for growth assessment. <a href="/legal/disclaimer">Read disclaimer</a>.</p>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="logo">
+                <div class="logo-text"><a href="/">👶 New Parent Reviews</a></div>
+                <p class="tagline">Real Reviews from Real Parents</p>
+            </div>
+            <button class="menu-toggle" aria-label="Toggle menu" aria-expanded="false">
+                <span></span><span></span><span></span>
+            </button>
+            <nav>
+                <ul>
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/blog-index">Survival Guide</a></li>
+                    <li><a href="/comparisons-index">Comparisons</a></li>
+                    <li><a href="/tools/" class="active">Tools</a></li>
+                    <li><a href="/about">About</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="tool-container">
+    <div class="medical-disclaimer-box" role="note" aria-label="Medical disclaimer">
+        <p><strong>⚕️ For Informational Purposes Only</strong></p>
+        <p>This calculator provides <strong>general guidelines based on standard recommendations</strong> and is not a substitute for professional medical or nutritional advice. Every baby is different — feeding needs, growth patterns, and developmental milestones vary.</p>
+        <p>Always consult your pediatrician or a registered dietitian for personalized guidance. <strong>Never adjust your baby's feeding based solely on calculator results.</strong></p>
+        <p style="margin:0; font-size: 0.8rem; color: #888;">By using this tool you acknowledge it is for informational purposes only. <a href="/legal/disclaimer">Read our full medical disclaimer.</a></p>
+    </div>
+
+        <a href="/tools/" class="back-link">← Back to All Tools</a>
+
+        <div class="tool-header">
+            <h1>Baby Growth Percentile Calculator</h1>
+            <p>Track your baby's growth against WHO growth charts</p>
+        </div>
+
+        <div class="calculator-form">
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="baby-sex">Baby's Sex</label>
+                    <select id="baby-sex">
+                        <option value="">Select</option>
+                        <option value="male">Boy</option>
+                        <option value="female">Girl</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="baby-age">Baby's Age</label>
+                    <select id="baby-age">
+                        <option value="">Select age</option>
+                        <option value="0">Birth (0 months)</option>
+                        <option value="1">1 month</option>
+                        <option value="2">2 months</option>
+                        <option value="3">3 months</option>
+                        <option value="4">4 months</option>
+                        <option value="5">5 months</option>
+                        <option value="6">6 months</option>
+                        <option value="7">7 months</option>
+                        <option value="8">8 months</option>
+                        <option value="9">9 months</option>
+                        <option value="10">10 months</option>
+                        <option value="11">11 months</option>
+                        <option value="12">12 months</option>
+                        <option value="15">15 months</option>
+                        <option value="18">18 months</option>
+                        <option value="24">24 months</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="baby-weight">Weight</label>
+                <div class="input-with-unit">
+                    <input type="number" id="baby-weight" placeholder="e.g., 12" step="0.1">
+                    <select id="weight-unit">
+                        <option value="lbs">lbs</option>
+                        <option value="kg">kg</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="baby-length">Length/Height</label>
+                <div class="input-with-unit">
+                    <input type="number" id="baby-length" placeholder="e.g., 24" step="0.1">
+                    <select id="length-unit">
+                        <option value="in">inches</option>
+                        <option value="cm">cm</option>
+                    </select>
+                </div>
+            </div>
+
+            <button class="calc-btn" onclick="calculatePercentile()">Calculate Percentiles</button>
+        </div>
+
+        <div id="result-section" class="result-section">
+            <div class="result-cards">
+                <div class="result-card weight">
+                    <div class="percentile-value" id="weight-percentile">--</div>
+                    <div class="percentile-label">Weight Percentile</div>
+                </div>
+                <div class="result-card length">
+                    <div class="percentile-value" id="length-percentile">--</div>
+                    <div class="percentile-label">Length Percentile</div>
+                </div>
+            </div>
+
+            <div class="percentile-bar">
+                <div class="bar-label">
+                    <span>Weight</span>
+                    <span id="weight-text"></span>
+                </div>
+                <div class="bar-container">
+                    <div class="bar-fill weight" id="weight-bar" style="width: 0%"></div>
+                </div>
+                <div class="bar-zones">
+                    <span>3rd</span>
+                    <span>15th</span>
+                    <span>50th</span>
+                    <span>85th</span>
+                    <span>97th</span>
+                </div>
+            </div>
+
+            <div class="percentile-bar">
+                <div class="bar-label">
+                    <span>Length</span>
+                    <span id="length-text"></span>
+                </div>
+                <div class="bar-container">
+                    <div class="bar-fill length" id="length-bar" style="width: 0%"></div>
+                </div>
+                <div class="bar-zones">
+                    <span>3rd</span>
+                    <span>15th</span>
+                    <span>50th</span>
+                    <span>85th</span>
+                    <span>97th</span>
+                </div>
+            </div>
+
+            <div id="interpretation" class="interpretation"></div>
+
+            <div class="note-box">
+                <strong>Remember:</strong> Percentiles show how your baby compares to others of the same age and sex. A baby at the 25th percentile is not "underweight" - they're simply smaller than 75% of babies. What matters most is that your baby follows their own growth curve consistently over time.
+            </div>
+        </div>
+
+        <!-- FAQ Section -->
+        <section class="faq-section">
+            <h2>Growth Chart FAQs</h2>
+
+            <div class="faq-item">
+                <h3>What do growth percentiles mean?</h3>
+                <p>A percentile shows where your baby falls compared to other babies of the same age and sex. If your baby is at the 40th percentile for weight, it means 40% of babies weigh less and 60% weigh more. Being at a higher or lower percentile doesn't mean "better" or "worse."</p>
+            </div>
+
+            <div class="faq-item">
+                <h3>Should I be worried if my baby is in a low percentile?</h3>
+                <p>Not necessarily. Healthy babies come in all sizes. What matters is that your baby is growing consistently along their own curve. A baby who's always been at the 15th percentile and continues to track there is doing great. Concern arises when a baby drops significantly from their usual curve.</p>
+            </div>
+
+            <div class="faq-item">
+                <h3>Why does my pediatrician use different charts?</h3>
+                <p>The WHO charts (used here) are recommended for babies 0-24 months and are based on breastfed infants as the standard. The CDC charts are often used for older children. Your pediatrician may use either depending on your baby's age and feeding method.</p>
+            </div>
+
+            <div class="faq-item">
+                <h3>When should growth be a concern?</h3>
+                <p>Talk to your pediatrician if: your baby drops more than 2 percentile lines (e.g., from 75th to 25th), is below the 3rd or above the 97th percentile, or isn't gaining weight appropriately. Your doctor will evaluate the full picture including feeding, development, and family history.</p>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    
+        <div id="product-rec-container" style="display:none; max-width:700px; margin:1rem auto; padding:0 2rem;">
+            
+                <div class="tool-product-rec">
+                    <div class="rec-label">📏 What we actually use</div>
+                    <h4>Papablic Bottle Sterilizer</h4>
+                    <p class="rec-why">Healthy feeding starts with clean bottles. One button, ceramic-coated, no harsh chemicals.</p>
+                    <div class="rec-links">
+                        <a href="https://www.amazon.com/dp/B074M5XZTS?tag=newparentrevi-20" target="_blank" rel="nofollow noopener" class="btn-amazon">Check Price on Amazon →</a>
+                        <a href="/products/papablic-bottle-sterilizer" class="btn-review">Read Our Full Review</a>
+                    </div>
+                    <p class="rec-disclosure">As an Amazon Associate we earn from qualifying purchases — at no extra cost to you.</p>
+                </div>
+                <div class="tool-email-capture">
+                    <h4>📬 Get our free baby care cheat sheet</h4>
+                    <p>Quick-reference guide for fevers, feeding amounts, sleep schedules &amp; more — straight to your inbox.</p>
+                    <form action="BEEHIIV_URL_PLACEHOLDER" method="POST" target="_blank">
+                        <input type="email" name="email" placeholder="Your email" required>
+                        <button type="submit">Send It Free →</button>
+                    </form>
+                </div>
+        </div>
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h4>New Parent Reviews</h4>
+                    <p>Honest reviews from real parents.</p>
+                </div>
+                <div class="footer-column">
+                    <h4>Free Tools</h4>
+                    <ul>
+                        <li><a href="/tools/growth-percentile-calculator">Growth Calculator</a></li>
+                        <li><a href="/tools/feeding-calculator">Feeding Calculator</a></li>
+                        <li><a href="/tools/baby-sleep-schedule">Sleep Schedule</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>Legal</h4>
+                    <ul>
+                        <li><a href="/legal/disclosure">Affiliate Disclosure</a></li>
+                        <li><a href="/legal/disclaimer">Medical Disclaimer</a></li>
+                        <li><a href="/legal/terms">Terms of Use</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© 2026 New Parent Reviews. All rights reserved. | 💝 As an Amazon Associate, we earn from qualifying purchases.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // WHO Growth Chart Data (simplified - median and SD values)
+        // Format: [median, SD] for weight (kg) and length (cm)
+        const whoData = {
+            male: {
+                weight: { // kg
+                    0: [3.3, 0.45], 1: [4.5, 0.55], 2: [5.6, 0.65], 3: [6.4, 0.72],
+                    4: [7.0, 0.78], 5: [7.5, 0.83], 6: [7.9, 0.87], 7: [8.3, 0.90],
+                    8: [8.6, 0.93], 9: [8.9, 0.96], 10: [9.2, 0.99], 11: [9.4, 1.02],
+                    12: [9.6, 1.04], 15: [10.3, 1.12], 18: [10.9, 1.20], 24: [12.2, 1.35]
+                },
+                length: { // cm
+                    0: [49.9, 2.0], 1: [54.7, 2.1], 2: [58.4, 2.2], 3: [61.4, 2.3],
+                    4: [63.9, 2.3], 5: [65.9, 2.4], 6: [67.6, 2.4], 7: [69.2, 2.5],
+                    8: [70.6, 2.5], 9: [72.0, 2.6], 10: [73.3, 2.6], 11: [74.5, 2.7],
+                    12: [75.7, 2.7], 15: [79.1, 2.9], 18: [82.3, 3.0], 24: [87.8, 3.3]
+                }
+            },
+            female: {
+                weight: { // kg
+                    0: [3.2, 0.42], 1: [4.2, 0.52], 2: [5.1, 0.60], 3: [5.8, 0.67],
+                    4: [6.4, 0.73], 5: [6.9, 0.78], 6: [7.3, 0.82], 7: [7.6, 0.86],
+                    8: [7.9, 0.89], 9: [8.2, 0.92], 10: [8.5, 0.95], 11: [8.7, 0.98],
+                    12: [8.9, 1.00], 15: [9.6, 1.08], 18: [10.2, 1.16], 24: [11.5, 1.30]
+                },
+                length: { // cm
+                    0: [49.1, 1.9], 1: [53.7, 2.0], 2: [57.1, 2.1], 3: [59.8, 2.2],
+                    4: [62.1, 2.2], 5: [64.0, 2.3], 6: [65.7, 2.3], 7: [67.3, 2.4],
+                    8: [68.7, 2.4], 9: [70.1, 2.5], 10: [71.5, 2.5], 11: [72.8, 2.6],
+                    12: [74.0, 2.6], 15: [77.5, 2.8], 18: [80.7, 2.9], 24: [86.4, 3.2]
+                }
+            }
+        };
+
+        function zScoreToPercentile(z) {
+            // Approximate conversion using normal distribution
+            const a1 = 0.254829592, a2 = -0.284496736, a3 = 1.421413741;
+            const a4 = -1.453152027, a5 = 1.061405429, p = 0.3275911;
+
+            const sign = z < 0 ? -1 : 1;
+            z = Math.abs(z) / Math.sqrt(2);
+
+            const t = 1.0 / (1.0 + p * z);
+            const y = 1.0 - (((((a5 * t + a4) * t) + a3) * t + a2) * t + a1) * t * Math.exp(-z * z);
+
+            return Math.round(50 * (1.0 + sign * y));
+        }
+
+        function calculatePercentile() {
+            const sex = document.getElementById('baby-sex').value;
+            const age = document.getElementById('baby-age').value;
+            let weight = parseFloat(document.getElementById('baby-weight').value);
+            let length = parseFloat(document.getElementById('baby-length').value);
+            const weightUnit = document.getElementById('weight-unit').value;
+            const lengthUnit = document.getElementById('length-unit').value;
+
+            if (!sex || !age || !weight || !length) {
+                alert('Please fill in all fields');
+                return;
+            }
+
+            // Convert to kg and cm
+            if (weightUnit === 'lbs') weight = weight / 2.205;
+            if (lengthUnit === 'in') length = length * 2.54;
+
+            const data = whoData[sex];
+            const ageNum = parseInt(age);
+
+            // Calculate z-scores
+            const weightMedian = data.weight[ageNum][0];
+            const weightSD = data.weight[ageNum][1];
+            const weightZ = (weight - weightMedian) / weightSD;
+
+            const lengthMedian = data.length[ageNum][0];
+            const lengthSD = data.length[ageNum][1];
+            const lengthZ = (length - lengthMedian) / lengthSD;
+
+            // Convert to percentiles
+            const weightPercentile = Math.min(99, Math.max(1, zScoreToPercentile(weightZ)));
+            const lengthPercentile = Math.min(99, Math.max(1, zScoreToPercentile(lengthZ)));
+
+            // Update display
+            document.getElementById('weight-percentile').textContent = weightPercentile + '%';
+            document.getElementById('length-percentile').textContent = lengthPercentile + '%';
+
+            document.getElementById('weight-bar').style.width = weightPercentile + '%';
+            document.getElementById('length-bar').style.width = lengthPercentile + '%';
+
+            document.getElementById('weight-text').textContent =
+                `${(weight * 2.205).toFixed(1)} lbs (${weight.toFixed(1)} kg)`;
+            document.getElementById('length-text').textContent =
+                `${(length / 2.54).toFixed(1)} in (${length.toFixed(1)} cm)`;
+
+            // Generate interpretation
+            let interpretation = '<h3>What This Means</h3>';
+
+            // Weight interpretation
+            if (weightPercentile < 5) {
+                interpretation += '<p><strong>Weight:</strong> Your baby is smaller than most babies this age. Discuss with your pediatrician to ensure proper nutrition and rule out any concerns.</p>';
+            } else if (weightPercentile < 25) {
+                interpretation += '<p><strong>Weight:</strong> Your baby is on the smaller side but within normal range. Track consistently at checkups.</p>';
+            } else if (weightPercentile < 75) {
+                interpretation += '<p><strong>Weight:</strong> Your baby\'s weight is right around average - very typical for this age!</p>';
+            } else if (weightPercentile < 95) {
+                interpretation += '<p><strong>Weight:</strong> Your baby is on the larger side but within normal range. Healthy babies come in all sizes!</p>';
+            } else {
+                interpretation += '<p><strong>Weight:</strong> Your baby is larger than most babies this age. Your pediatrician will monitor growth patterns.</p>';
+            }
+
+            // Length interpretation
+            if (lengthPercentile < 5) {
+                interpretation += '<p><strong>Length:</strong> Your baby is shorter than most babies this age. Family genetics often play a role.</p>';
+            } else if (lengthPercentile < 25) {
+                interpretation += '<p><strong>Length:</strong> Your baby is on the shorter side but within normal range.</p>';
+            } else if (lengthPercentile < 75) {
+                interpretation += '<p><strong>Length:</strong> Your baby\'s length is right around average!</p>';
+            } else if (lengthPercentile < 95) {
+                interpretation += '<p><strong>Length:</strong> Your baby is taller than many babies this age.</p>';
+            } else {
+                interpretation += '<p><strong>Length:</strong> Your baby is taller than most babies this age!</p>';
+            }
+
+            interpretation += '<ul><li>These percentiles are just one data point</li><li>Consistent tracking over time is more meaningful than any single measurement</li><li>Your pediatrician considers the full picture of your baby\'s health</li></ul>';
+
+            document.getElementById('interpretation').innerHTML = interpretation;
+            document.getElementById('result-section').classList.add('show');
+            document.getElementById('product-rec-container').style.display = 'block';
+            document.getElementById('result-section').scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+            // Track
+            if (typeof gtag === 'function') {
+                gtag('event', 'growth_calculated', {
+                    'event_category': 'Tools',
+                    'event_label': sex + '_' + age + 'mo'
+                });
+            }
+        }
+    </script>
+
+
+
+    <div class="footer-disclosure">
+      <div class="container"><p>💝 <strong>Disclosure:</strong> This site contains affiliate links. <a href="/legal/disclosure">Read our full disclosure policy</a>.</p></div>
+    </div>
+
+<script>
+(function(){
+  var btn = document.querySelector('.menu-toggle');
+  var nav = document.querySelector('header nav');
+  if(!btn || !nav) return;
+  btn.addEventListener('click', function(){
+    var open = nav.classList.toggle('open');
+    btn.classList.toggle('open', open);
+    btn.setAttribute('aria-expanded', open);
+  });
+  // close on outside click
+  document.addEventListener('click', function(e){
+    if(!e.target.closest('header')){
+      nav.classList.remove('open');
+      btn.classList.remove('open');
+      btn.setAttribute('aria-expanded', false);
+    }
+  });
+})();
+</script>
+</body>
+</html>

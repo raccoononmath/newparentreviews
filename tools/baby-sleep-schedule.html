@@ -1,0 +1,793 @@
+<!DOCTYPE html>
+
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Free baby sleep schedule generator. Enter your baby's age to get personalized wake windows, nap times, and bedtime recommendations. Includes 0-24 month schedules.">
+    <meta name="keywords" content="baby sleep schedule, newborn sleep schedule, infant nap schedule, wake windows baby, baby bedtime, how much sleep does baby need, baby sleep by age">
+
+    <!-- Open Graph Tags -->
+    <meta property="og:title" content="Baby Sleep Schedule Generator — Personalized by Age">
+    <meta property="og:description" content="Get a custom sleep schedule for your baby based on age. Includes wake windows, nap times, and bedtime recommendations.">
+    <meta property="og:url" content="https://newparentreviews.com/tools/baby-sleep-schedule">
+    <meta property="og:image" content="https://newparentreviews.com/images/social-share.jpg">
+    <meta property="og:type" content="website">
+
+    <title>Baby Sleep Schedule Generator by Age — Wake Windows & Nap Times</title>
+    <link rel="icon" type="image/png" href="../favicon.png">
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="canonical" href="https://newparentreviews.com/tools/baby-sleep-schedule">
+
+    <!-- Google Analytics -->
+    <script async="" src="./Baby Sleep Schedule Generator by Age _ Free Tool _ New Parent Reviews_files/js"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-TZV8W9VS35');
+    </script>
+
+    <!-- FAQ Schema -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+            {
+                "@type": "Question",
+                "name": "How much sleep does a newborn need?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Newborns (0-3 months) need 14-17 hours of sleep per 24-hour period. They typically sleep in short stretches of 2-4 hours because they need to feed frequently. By 3 months, some babies start sleeping longer stretches at night."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "What are wake windows for babies?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Wake windows are the optimal periods of time a baby can stay awake between sleep periods without becoming overtired. They vary by age: newborns have 45-90 minute wake windows, while 6-month-olds can stay awake 2-3 hours."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "When should I put my baby to bed?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Ideal bedtime varies by age but generally falls between 6-8 PM for babies 3+ months. Look for sleepy cues like eye rubbing, yawning, or fussiness. An earlier bedtime often leads to better overnight sleep than a late bedtime."
+                }
+            }
+        ]
+    }
+    </script>
+
+    <style>
+        .tool-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        .tool-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        .tool-header h1 { font-size: 2rem; color: #333; }
+        .generator-form {
+            background: white;
+            padding: 2rem;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        }
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: #333;
+        }
+        .form-group select, .form-group input {
+            width: 100%;
+            padding: 0.75rem;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 1rem;
+        }
+        .form-group select:focus, .form-group input:focus {
+            border-color: #667eea;
+            outline: none;
+        }
+        .generate-btn {
+            width: 100%;
+            padding: 1rem;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+        }
+        .generate-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+        }
+        .schedule-result {
+            margin-top: 2rem;
+            display: none;
+        }
+        .schedule-result.show { display: block; }
+        .schedule-summary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 1.5rem;
+            border-radius: 12px;
+            margin-bottom: 1.5rem;
+        }
+        .schedule-summary h3 { margin-bottom: 1rem; }
+        .summary-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 1rem;
+        }
+        .summary-item {
+            text-align: center;
+            background: rgba(255,255,255,0.15);
+            padding: 1rem;
+            border-radius: 8px;
+        }
+        .summary-item .value {
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+        .summary-item .label {
+            font-size: 0.85rem;
+            opacity: 0.9;
+        }
+        .schedule-table {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+        .schedule-header {
+            background: #f8f9fa;
+            padding: 1rem 1.5rem;
+            font-weight: 600;
+            border-bottom: 1px solid #eee;
+        }
+        .schedule-row {
+            display: flex;
+            padding: 1rem 1.5rem;
+            border-bottom: 1px solid #f0f0f0;
+            align-items: center;
+        }
+        .schedule-row:last-child { border-bottom: none; }
+        .schedule-row.nap { background: #f0f7ff; }
+        .schedule-row.feed { background: #fff9f0; }
+        .schedule-row.bedtime { background: #f0f0ff; }
+        .time-col {
+            width: 100px;
+            font-weight: 600;
+            color: #667eea;
+        }
+        .activity-col {
+            flex: 1;
+        }
+        .activity-icon {
+            margin-right: 0.5rem;
+        }
+        .tips-section {
+            margin-top: 2rem;
+            background: #e8f5e9;
+            padding: 1.5rem;
+            border-radius: 12px;
+        }
+        .tips-section h3 {
+            color: #2e7d32;
+            margin-bottom: 1rem;
+        }
+        .tips-section ul {
+            margin: 0;
+            padding-left: 1.5rem;
+        }
+        .tips-section li { margin-bottom: 0.5rem; }
+        .faq-section { margin-top: 3rem; }
+        .faq-item {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+        .faq-item h3 { font-size: 1.1rem; color: #333; margin-bottom: 0.5rem; }
+        .faq-item p { color: #666; line-height: 1.6; }
+        .back-link {
+            display: inline-block;
+            margin-bottom: 1rem;
+            color: #667eea;
+            text-decoration: none;
+        }
+        .print-btn {
+            background: #28a745;
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 1rem;
+        }
+        @media print {
+            header, footer, .disclosure-banner, .faq-section, .generate-btn, .print-btn, .back-link { display: none; }
+            .schedule-result { display: block !important; }
+        }
+    
+        /* Product Recommendation Styles */
+        .tool-product-rec {
+            margin-top: 1.5rem;
+            padding: 1.25rem;
+            background: linear-gradient(135deg, #f8fffe 0%, #f0faf7 100%);
+            border: 2px solid #d4edda;
+            border-radius: 12px;
+            text-align: left;
+        }
+        .tool-product-rec .rec-label {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: #28a745;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+        .tool-product-rec h4 {
+            margin: 0 0 0.4rem 0;
+            font-size: 1.05rem;
+            color: #333;
+        }
+        .tool-product-rec .rec-why {
+            font-size: 0.9rem;
+            color: #555;
+            margin-bottom: 0.75rem;
+            line-height: 1.4;
+        }
+        .tool-product-rec .rec-links {
+            display: flex;
+            gap: 0.75rem;
+            flex-wrap: wrap;
+        }
+        .tool-product-rec .rec-links a {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.2s;
+        }
+        .tool-product-rec .rec-links .btn-amazon {
+            background: #ff9900;
+            color: #111;
+        }
+        .tool-product-rec .rec-links .btn-amazon:hover {
+            background: #e88b00;
+        }
+        .tool-product-rec .rec-links .btn-review {
+            background: #fff;
+            color: #2a7ae2;
+            border: 1px solid #2a7ae2;
+        }
+        .tool-product-rec .rec-links .btn-review:hover {
+            background: #f0f6ff;
+        }
+        .tool-product-rec .rec-disclosure {
+            font-size: 0.7rem;
+            color: #999;
+            margin-top: 0.6rem;
+        }
+        .tool-product-rec + .tool-product-rec {
+            margin-top: 0.75rem;
+        }
+        /* Email capture after tool result */
+        .tool-email-capture {
+            margin-top: 1.5rem;
+            padding: 1.25rem;
+            background: #fff9e6;
+            border: 2px solid #ffeaa7;
+            border-radius: 12px;
+            text-align: center;
+        }
+        .tool-email-capture h4 {
+            margin: 0 0 0.5rem 0;
+            font-size: 1rem;
+            color: #333;
+        }
+        .tool-email-capture p {
+            font-size: 0.85rem;
+            color: #666;
+            margin-bottom: 0.75rem;
+        }
+        .tool-email-capture form {
+            display: flex;
+            gap: 0.5rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        .tool-email-capture input[type="email"] {
+            padding: 0.5rem 0.75rem;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            min-width: 220px;
+        }
+        .tool-email-capture button {
+            padding: 0.5rem 1rem;
+            background: #2a7ae2;
+            color: #fff;
+            border: none;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+    </style>
+    <!-- Google AdSense -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1019340861746623" crossorigin="anonymous"></script>
+</head>
+<body>
+    <!-- Disclosure Banner -->
+    <div class="disclosure-banner">
+        <div class="container">
+            <p><strong>Disclosure:</strong> This website contains affiliate links. <a href="/legal/disclosure">Read our full disclosure policy</a>.</p>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="logo">
+                <div class="logo-text"><a href="/">👶 New Parent Reviews</a></div>
+                <p class="tagline">Real Reviews from Real Parents</p>
+            </div>
+            <button class="menu-toggle" aria-label="Toggle menu" aria-expanded="false">
+                <span></span><span></span><span></span>
+            </button>
+            <nav>
+                <ul>
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/blog-index">Survival Guide</a></li>
+                    <li><a href="/comparisons-index">Comparisons</a></li>
+                    <li><a href="/tools/" class="active">Tools</a></li>
+                    <li><a href="/about">About</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="tool-container">
+        <a href="/tools/" class="back-link">← Back to All Tools</a>
+
+        <div class="tool-header">
+            <h1>Baby Sleep Schedule Generator</h1>
+            <p>Get a personalized sleep schedule based on your baby's age</p>
+        </div>
+
+        <div class="generator-form">
+            <div class="form-group">
+                <label for="baby-age">Baby's Age</label>
+                <select id="baby-age">
+                    <option value="">Select your baby's age</option>
+                    <option value="0-6weeks">0-6 weeks (Newborn)</option>
+                    <option value="6-12weeks">6-12 weeks</option>
+                    <option value="3-4months">3-4 months</option>
+                    <option value="4-6months">4-6 months</option>
+                    <option value="6-9months">6-9 months</option>
+                    <option value="9-12months">9-12 months</option>
+                    <option value="12-18months">12-18 months</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="wake-time">What time does baby usually wake up?</label>
+                <input type="time" id="wake-time" value="07:00">
+            </div>
+
+            <div class="form-group">
+                <label for="sleep-style">Sleep preference</label>
+                <select id="sleep-style">
+                    <option value="flexible">Flexible (watch for cues)</option>
+                    <option value="scheduled">More scheduled routine</option>
+                </select>
+            </div>
+
+            <button class="generate-btn" onclick="generateSchedule()">Generate Sleep Schedule</button>
+        </div>
+
+        <div id="schedule-result" class="schedule-result">
+            <div id="schedule-summary" class="schedule-summary"></div>
+            <div id="schedule-table" class="schedule-table"></div>
+            <div id="tips-section" class="tips-section"></div>
+            <button class="print-btn" onclick="window.print()">Print Schedule</button>
+        </div>
+
+        <!-- FAQ Section -->
+        <section class="faq-section">
+            <h2>Baby Sleep FAQs</h2>
+
+            <div class="faq-item">
+                <h3>What are wake windows?</h3>
+                <p>Wake windows are the periods of time your baby can comfortably stay awake between sleep sessions. Keeping baby awake too long leads to overtiredness, which paradoxically makes it harder for them to fall and stay asleep. Wake windows increase as babies grow.</p>
+            </div>
+
+            <div class="faq-item">
+                <h3>Why won't my baby sleep in the bassinet?</h3>
+                <p>Many babies prefer being held because it mimics the womb. Try warming the bassinet before putting baby down, using white noise, and placing baby down drowsy but awake. Our <a href="#">complete guide</a> covers 7 proven solutions.</p>
+            </div>
+
+            <div class="faq-item">
+                <h3>When do babies sleep through the night?</h3>
+                <p>Most babies are physically capable of sleeping 6+ hour stretches by 3-4 months, but many don't consistently sleep through the night until 6-12 months. Every baby is different - some do it earlier, some later.</p>
+            </div>
+
+            <div class="faq-item">
+                <h3>Is it normal for my baby to wake at night?</h3>
+                <p>Yes! Night waking is biologically normal for babies. They have shorter sleep cycles than adults and may wake for feeding, comfort, or due to developmental changes. Gradual improvements typically happen over the first year.</p>
+            </div>
+        </section>
+
+        <!-- Product Recommendations -->
+        <section style="margin-top: 3rem; background: #f8f9fa; padding: 2rem; border-radius: 12px;">
+            <h2>Sleep Products We Recommend</h2>
+            <div style="display: grid; gap: 1rem; margin-top: 1rem;">
+                <a href="https://newparentreviews.com/products/halo-bassinest-swivel-sleeper-review" style="display: flex; gap: 1rem; padding: 1rem; background: white; border-radius: 8px; text-decoration: none; color: inherit;">
+                    <span style="font-size: 2rem;">🛏️</span>
+                    <div>
+                        <strong>HALO BassiNest Swivel Sleeper</strong>
+                        <p style="margin: 0; color: #666; font-size: 0.9rem;">360° swivel brings baby close for night feeds. Great for C-section recovery.</p>
+                    </div>
+                </a>
+                <a href="https://newparentreviews.com/products/baby-monitor-review" style="display: flex; gap: 1rem; padding: 1rem; background: white; border-radius: 8px; text-decoration: none; color: inherit;">
+                    <span style="font-size: 2rem;">📹</span>
+                    <div>
+                        <strong>HelloBaby 6" Baby Monitor</strong>
+                        <p style="margin: 0; color: #666; font-size: 0.9rem;">Watch baby sleep from anywhere. Night vision &amp; 2-way audio.</p>
+                    </div>
+                </a>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    
+        <div id="product-rec-container" style="display:none; max-width:700px; margin:1rem auto; padding:0 2rem;">
+            
+                <div class="tool-product-rec">
+                    <div class="rec-label">💤 What we actually use</div>
+                    <h4>HALO BassiNest Swivel Sleeper</h4>
+                    <p class="rec-why">360° swivel + lowering wall so you don't have to fully sit up at 3am.</p>
+                    <div class="rec-links">
+                        <a href="https://www.amazon.com/dp/B09WF3CNGS?tag=newparentrevi-20" target="_blank" rel="nofollow noopener" class="btn-amazon">Check Price on Amazon →</a>
+                        <a href="/products/halo-bassinest-swivel-sleeper-review" class="btn-review">Read Our Full Review</a>
+                    </div>
+                    <p class="rec-disclosure">As an Amazon Associate we earn from qualifying purchases — at no extra cost to you.</p>
+                </div>
+                <div class="tool-product-rec">
+                    <div class="rec-label">📹 Also essential</div>
+                    <h4>HelloBaby Monitor</h4>
+                    <p class="rec-why">No WiFi needed. Clear night vision. 20+ months of nightly use.</p>
+                    <div class="rec-links">
+                        <a href="https://www.amazon.com/dp/B0F62XDF5N?tag=newparentrevi-20" target="_blank" rel="nofollow noopener" class="btn-amazon">Check Price on Amazon →</a>
+                        <a href="/products/baby-monitor-review" class="btn-review">Read Our Full Review</a>
+                    </div>
+                </div>
+                <div class="tool-email-capture">
+                    <h4>📬 Get our free baby care cheat sheet</h4>
+                    <p>Quick-reference guide for fevers, feeding amounts, sleep schedules &amp; more — straight to your inbox.</p>
+                    <form action="BEEHIIV_URL_PLACEHOLDER" method="POST" target="_blank">
+                        <input type="email" name="email" placeholder="Your email" required>
+                        <button type="submit">Send It Free →</button>
+                    </form>
+                </div>
+        </div>
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h4>New Parent Reviews</h4>
+                    <p>Honest reviews from real parents.</p>
+                </div>
+                <div class="footer-column">
+                    <h4>Free Tools</h4>
+                    <ul>
+                        <li><a href="https://newparentreviews.com/tools/baby-fever-checker">Fever Checker</a></li>
+                        <li><a href="/tools/baby-sleep-schedule">Sleep Schedule</a></li>
+                        <li><a href="/tools/feeding-calculator">Feeding Calculator</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>Legal</h4>
+                    <ul>
+                        <li><a href="/legal/disclosure">Affiliate Disclosure</a></li>
+                        <li><a href="/legal/disclaimer">Medical Disclaimer</a></li>
+                        <li><a href="/legal/terms">Terms of Use</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© 2026 New Parent Reviews. All rights reserved. | 💝 As an Amazon Associate, we earn from qualifying purchases.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const sleepData = {
+            '0-6weeks': {
+                totalSleep: '14-17 hours',
+                nightSleep: '8-9 hours (in stretches)',
+                daySleep: '6-8 hours',
+                naps: '4-6 naps',
+                wakeWindow: '45-60 min',
+                napLength: '30 min - 2 hours',
+                tips: [
+                    'Newborns don\'t have set schedules - follow their cues',
+                    'Day and night confusion is normal - it resolves by 6-8 weeks',
+                    'Safe sleep: always on back, on firm surface, no loose bedding',
+                    'Feed on demand - usually every 2-3 hours',
+                    'Don\'t worry about "bad habits" yet - comfort your baby freely'
+                ]
+            },
+            '6-12weeks': {
+                totalSleep: '14-16 hours',
+                nightSleep: '9-10 hours (with feeds)',
+                daySleep: '4-5 hours',
+                naps: '4-5 naps',
+                wakeWindow: '60-90 min',
+                napLength: '30 min - 2 hours',
+                tips: [
+                    'A bedtime routine can start now (bath, feed, story, sleep)',
+                    'Aim for an earlier bedtime (6-8 PM works well)',
+                    'Watch for sleepy cues: yawning, eye rubbing, fussiness',
+                    'Longer night stretches may start to emerge',
+                    'Consistency helps but flexibility is still important'
+                ]
+            },
+            '3-4months': {
+                totalSleep: '14-16 hours',
+                nightSleep: '10-11 hours',
+                daySleep: '3-4 hours',
+                naps: '3-4 naps',
+                wakeWindow: '1.5-2 hours',
+                napLength: '30 min - 2 hours',
+                tips: [
+                    '4-month sleep regression is common - hang in there!',
+                    'Baby may be ready for more predictable nap times',
+                    'Last nap of day can be a short "catnap"',
+                    'Consider moving baby to their own room if not already',
+                    'Drowsy but awake can start working now'
+                ]
+            },
+            '4-6months': {
+                totalSleep: '12-15 hours',
+                nightSleep: '10-11 hours',
+                daySleep: '2.5-3.5 hours',
+                naps: '3 naps',
+                wakeWindow: '2-2.5 hours',
+                napLength: '1-2 hours',
+                tips: [
+                    'Most babies are ready for a consistent 3-nap schedule',
+                    'Sleep training can begin if desired (consult your pediatrician)',
+                    'Some babies drop to 2 naps around 6 months',
+                    'Solid foods starting doesn\'t necessarily improve sleep',
+                    'Night feeds may still be needed but typically reduce'
+                ]
+            },
+            '6-9months': {
+                totalSleep: '12-14 hours',
+                nightSleep: '10-11 hours',
+                daySleep: '2-3 hours',
+                naps: '2-3 naps',
+                wakeWindow: '2.5-3 hours',
+                napLength: '1-2 hours',
+                tips: [
+                    'Many babies transition from 3 to 2 naps during this time',
+                    'Separation anxiety may cause temporary sleep disruptions',
+                    'Keep bedtime routine consistent',
+                    'Teething can disrupt sleep temporarily',
+                    'Practice putting down awake to build self-soothing skills'
+                ]
+            },
+            '9-12months': {
+                totalSleep: '12-14 hours',
+                nightSleep: '10-12 hours',
+                daySleep: '2-3 hours',
+                naps: '2 naps',
+                wakeWindow: '3-4 hours',
+                napLength: '1-2 hours',
+                tips: [
+                    'Most babies are on a solid 2-nap schedule now',
+                    'Night weaning is often possible if baby is gaining well',
+                    'Walking/cruising may temporarily affect sleep',
+                    'Stick to consistent wake and bed times',
+                    '8-10 month sleep regression is common'
+                ]
+            },
+            '12-18months': {
+                totalSleep: '11-14 hours',
+                nightSleep: '10-12 hours',
+                daySleep: '2-3 hours',
+                naps: '1-2 naps',
+                wakeWindow: '4-5 hours',
+                napLength: '1.5-3 hours',
+                tips: [
+                    'Transition from 2 naps to 1 usually happens 14-18 months',
+                    'Single nap is typically after lunch (12-2 PM)',
+                    'Expect resistance during nap transition - it takes time',
+                    'Bedtime may need to move earlier temporarily',
+                    'Toddler sleep regression around 18 months is normal'
+                ]
+            }
+        };
+
+        function formatTime(date) {
+            return date.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', hour12: true });
+        }
+
+        function addMinutes(date, minutes) {
+            return new Date(date.getTime() + minutes * 60000);
+        }
+
+        function generateSchedule() {
+            const age = document.getElementById('baby-age').value;
+            const wakeTimeInput = document.getElementById('wake-time').value;
+            const style = document.getElementById('sleep-style').value;
+
+            if (!age) {
+                alert('Please select your baby\'s age');
+                return;
+            }
+
+            const data = sleepData[age];
+            const [hours, minutes] = wakeTimeInput.split(':').map(Number);
+            let currentTime = new Date();
+            currentTime.setHours(hours, minutes, 0, 0);
+
+            // Build summary
+            document.getElementById('schedule-summary').innerHTML = `
+                <h3>Sleep Schedule for ${age.replace('-', ' to ').replace('weeks', ' weeks').replace('months', ' months')}</h3>
+                <div class="summary-grid">
+                    <div class="summary-item">
+                        <div class="value">${data.totalSleep}</div>
+                        <div class="label">Total Sleep</div>
+                    </div>
+                    <div class="summary-item">
+                        <div class="value">${data.nightSleep}</div>
+                        <div class="label">Night Sleep</div>
+                    </div>
+                    <div class="summary-item">
+                        <div class="value">${data.naps}</div>
+                        <div class="label">Daily Naps</div>
+                    </div>
+                    <div class="summary-item">
+                        <div class="value">${data.wakeWindow}</div>
+                        <div class="label">Wake Window</div>
+                    </div>
+                </div>
+            `;
+
+            // Generate schedule
+            let scheduleHTML = `<div class="schedule-header">Sample Daily Schedule (Starting at ${formatTime(currentTime)})</div>`;
+
+            // Parse wake window
+            const wakeWindowParts = data.wakeWindow.split('-');
+            const avgWakeWindow = (parseInt(wakeWindowParts[0]) + parseInt(wakeWindowParts[1] || wakeWindowParts[0])) / 2 * 60;
+
+            // Parse naps
+            const napRange = data.naps.split('-');
+            const numNaps = Math.round((parseInt(napRange[0]) + parseInt(napRange[1] || napRange[0])) / 2);
+            const avgNapLength = 60; // 1 hour average
+
+            // Morning wake
+            scheduleHTML += `
+                <div class="schedule-row">
+                    <div class="time-col">${formatTime(currentTime)}</div>
+                    <div class="activity-col"><span class="activity-icon">☀️</span> Wake up & Morning feed</div>
+                </div>
+            `;
+
+            // Generate naps throughout the day
+            for (let i = 0; i < numNaps; i++) {
+                // Wake window before nap
+                currentTime = addMinutes(currentTime, avgWakeWindow);
+
+                const napNum = i + 1;
+                const napLabel = napNum === numNaps ? 'Last nap (can be shorter)' : `Nap ${napNum}`;
+
+                scheduleHTML += `
+                    <div class="schedule-row nap">
+                        <div class="time-col">${formatTime(currentTime)}</div>
+                        <div class="activity-col"><span class="activity-icon">😴</span> ${napLabel}</div>
+                    </div>
+                `;
+
+                // Nap duration
+                currentTime = addMinutes(currentTime, i === numNaps - 1 ? 30 : avgNapLength);
+
+                scheduleHTML += `
+                    <div class="schedule-row">
+                        <div class="time-col">${formatTime(currentTime)}</div>
+                        <div class="activity-col"><span class="activity-icon">🎉</span> Wake from nap, feed & play</div>
+                    </div>
+                `;
+            }
+
+            // Bedtime routine
+            currentTime = addMinutes(currentTime, avgWakeWindow - 30);
+            scheduleHTML += `
+                <div class="schedule-row">
+                    <div class="time-col">${formatTime(currentTime)}</div>
+                    <div class="activity-col"><span class="activity-icon">🛁</span> Start bedtime routine (bath, feed, story)</div>
+                </div>
+            `;
+
+            // Bedtime
+            currentTime = addMinutes(currentTime, 30);
+            scheduleHTML += `
+                <div class="schedule-row bedtime">
+                    <div class="time-col">${formatTime(currentTime)}</div>
+                    <div class="activity-col"><span class="activity-icon">🌙</span> Bedtime</div>
+                </div>
+            `;
+
+            document.getElementById('schedule-table').innerHTML = scheduleHTML;
+
+            // Tips section
+            document.getElementById('tips-section').innerHTML = `
+                <h3>Tips for ${age.replace('-', ' to ').replace('weeks', ' weeks').replace('months', ' months')}</h3>
+                <ul>
+                    ${data.tips.map(tip => `<li>${tip}</li>`).join('')}
+                </ul>
+            `;
+
+            // Show results
+            document.getElementById('schedule-result').classList.add('show');
+            document.getElementById('product-rec-container').style.display = 'block';
+            document.getElementById('schedule-result').scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+            // Track in Analytics
+            if (typeof gtag === 'function') {
+                gtag('event', 'sleep_schedule_generated', {
+                    'event_category': 'Tools',
+                    'event_label': age
+                });
+            }
+        }
+    </script>
+
+
+
+    <div class="footer-disclosure">
+      <div class="container"><p>💝 <strong>Disclosure:</strong> This site contains affiliate links. <a href="/legal/disclosure">Read our full disclosure policy</a>.</p></div>
+    </div>
+
+<script>
+(function(){
+  var btn = document.querySelector('.menu-toggle');
+  var nav = document.querySelector('header nav');
+  if(!btn || !nav) return;
+  btn.addEventListener('click', function(){
+    var open = nav.classList.toggle('open');
+    btn.classList.toggle('open', open);
+    btn.setAttribute('aria-expanded', open);
+  });
+  // close on outside click
+  document.addEventListener('click', function(e){
+    if(!e.target.closest('header')){
+      nav.classList.remove('open');
+      btn.classList.remove('open');
+      btn.setAttribute('aria-expanded', false);
+    }
+  });
+})();
+</script>
+</body>
+</html>

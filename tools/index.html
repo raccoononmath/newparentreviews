@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Free Baby Tools & Calculators for New Parents</title>
+    <meta name="description" content="Quick, helpful calculators and checkers for those late-night parenting moments. No signup required.">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f9fafb;
+        }
+
+        .disclosure-banner {
+            background-color: #fff9e6;
+            border-bottom: 1px solid #f0e5c8;
+            padding: 12px 20px;
+            text-align: center;
+            font-size: 14px;
+        }
+
+        .disclosure-banner a {
+            color: #2563eb;
+            text-decoration: underline;
+        }
+
+        header {
+            background-color: #fff;
+            border-bottom: 1px solid #e5e7eb;
+            padding: 20px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: 700;
+            color: #1f2937;
+            text-decoration: none;
+        }
+
+        .logo-subtitle {
+            font-size: 13px;
+            color: #6b7280;
+            font-weight: 400;
+            display: block;
+            margin-top: 2px;
+        }
+
+        nav ul {
+            display: flex;
+            gap: 30px;
+            list-style: none;
+        }
+
+        nav a {
+            color: #4b5563;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+
+        nav a:hover {
+            color: #2563eb;
+        }
+
+        .hero {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 60px 20px;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 42px;
+            margin-bottom: 16px;
+            font-weight: 700;
+        }
+
+        .hero p {
+            font-size: 20px;
+            opacity: 0.95;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 60px 20px;
+        }
+
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+            gap: 30px;
+            margin-bottom: 60px;
+        }
+
+        .tool-card {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+            transition: transform 0.2s, box-shadow 0.2s;
+            text-decoration: none;
+            color: inherit;
+            display: block;
+            border: 1px solid #e5e7eb;
+        }
+
+        .tool-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+        }
+
+        .tool-icon {
+            font-size: 48px;
+            margin-bottom: 16px;
+            display: block;
+        }
+
+        .tool-card h3 {
+            font-size: 22px;
+            margin-bottom: 12px;
+            color: #1f2937;
+            font-weight: 600;
+        }
+
+        .tool-description {
+            color: #6b7280;
+            margin-bottom: 16px;
+            font-size: 15px;
+            line-height: 1.5;
+        }
+
+        .tool-category {
+            display: inline-block;
+            padding: 6px 12px;
+            background-color: #f3f4f6;
+            color: #4b5563;
+            border-radius: 6px;
+            font-size: 13px;
+            font-weight: 500;
+        }
+
+        .cta-section {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            border-radius: 16px;
+            padding: 50px 40px;
+            text-align: center;
+            color: white;
+            margin-top: 40px;
+        }
+
+        .cta-section h2 {
+            font-size: 32px;
+            margin-bottom: 16px;
+            font-weight: 700;
+        }
+
+        .cta-section p {
+            font-size: 18px;
+            margin-bottom: 24px;
+            opacity: 0.95;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: white;
+            color: #f5576c;
+            padding: 14px 32px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 16px;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .cta-button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+        }
+
+        footer {
+            background-color: #1f2937;
+            color: #d1d5db;
+            padding: 50px 20px 30px;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            margin-bottom: 30px;
+        }
+
+        .footer-section h4 {
+            color: white;
+            margin-bottom: 16px;
+            font-size: 16px;
+            font-weight: 600;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section ul li {
+            margin-bottom: 10px;
+        }
+
+        .footer-section a {
+            color: #d1d5db;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .footer-section a:hover {
+            color: #fff;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid #374151;
+            padding-top: 20px;
+            text-align: center;
+            font-size: 14px;
+            color: #9ca3af;
+        }
+
+        @media (max-width: 768px) {
+            nav ul {
+                gap: 15px;
+                font-size: 14px;
+            }
+
+            .hero h1 {
+                font-size: 32px;
+            }
+
+            .hero p {
+                font-size: 18px;
+            }
+
+            .tools-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .cta-section {
+                padding: 40px 24px;
+            }
+
+            .cta-section h2 {
+                font-size: 26px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .header-content {
+                flex-direction: column;
+                gap: 16px;
+            }
+
+            nav ul {
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 10px;
+            }
+        }
+    </style>
+    <!-- Google AdSense -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1019340861746623" crossorigin="anonymous"></script>
+  <link rel="canonical" href="/tools/">
+</head>
+<body>
+    <div class="disclosure-banner">
+        <strong>Disclosure:</strong> This website contains affiliate links. If you purchase through our links, we may earn a commission at no extra cost to you. <a href="/legal/disclosure">Read our full disclosure policy</a>.
+    </div>
+
+    <header>
+        <div class="header-content">
+            <a href="/" class="logo">
+                New Parent Reviews
+                <span class="logo-subtitle">Real Reviews from Real Parents</span>
+            </a>
+            <button class="menu-toggle" aria-label="Toggle menu" aria-expanded="false">
+                <span></span><span></span><span></span>
+            </button>
+            <nav>
+                <ul>
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/blog-index">Survival Guide</a></li>
+                    <li><a href="/comparisons-index">Comparisons</a></li>
+                    <li><a href="/tools/">Tools</a></li>
+                    <li><a href="/about">About</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero">
+        <h1>Free Baby Tools for Parents</h1>
+        <p>Quick, helpful calculators and checkers for those late-night parenting moments. No signup required.</p>
+    </section>
+
+    <div class="container">
+        <div class="tools-grid">
+            <a href="https://newparentreviews.com/tools/baby-fever-checker" class="tool-card">
+                <span class="tool-icon">🌡️</span>
+                <h3>Baby Fever Checker</h3>
+                <p class="tool-description">Is your baby's temperature concerning? Enter the reading and get guidance on what to do next and when to call the doctor.</p>
+                <span class="tool-category">Urgent Care Guide</span>
+            </a>
+
+            <a href="/tools/baby-sleep-schedule" class="tool-card">
+                <span class="tool-icon">😴</span>
+                <h3>Baby Sleep Schedule Generator</h3>
+                <p class="tool-description">Get a personalized sleep schedule based on your baby's age. Includes wake windows, nap times, and bedtime recommendations.</p>
+                <span class="tool-category">Daily Planning</span>
+            </a>
+
+            <a href="https://newparentreviews.com/tools/diaper-rash-checker" class="tool-card">
+                <span class="tool-icon">🩹</span>
+                <h3>Diaper Rash Severity Checker</h3>
+                <p class="tool-description">Assess your baby's diaper rash severity and get treatment recommendations. Know when home treatment is enough vs. doctor visit.</p>
+                <span class="tool-category">Symptom Checker</span>
+            </a>
+
+            <a href="/tools/feeding-calculator" class="tool-card">
+                <span class="tool-icon">🍼</span>
+                <h3>Baby Feeding Calculator</h3>
+                <p class="tool-description">Calculate how much formula or breast milk your baby needs based on age and weight. Includes feeding frequency guide.</p>
+                <span class="tool-category">Feeding Guide</span>
+            </a>
+
+            <a href="https://newparentreviews.com/tools/congestion-checker" class="tool-card">
+                <span class="tool-icon">😤</span>
+                <h3>Baby Congestion Checker</h3>
+                <p class="tool-description">Is your baby congested? Answer a few questions to get relief recommendations and know when it might be more serious.</p>
+                <span class="tool-category">Symptom Checker</span>
+            </a>
+
+            <a href="/tools/growth-percentile-calculator" class="tool-card">
+                <span class="tool-icon">📏</span>
+                <h3>Baby Growth Percentile Calculator</h3>
+                <p class="tool-description">Track your baby's weight and length against WHO growth charts. See where your baby falls on the percentile scale.</p>
+                <span class="tool-category">Growth Tracking</span>
+            </a>
+
+            <a href="https://newparentreviews.com/tools/is-it-worth-it" class="tool-card">
+                <span class="tool-icon">💸</span>
+                <h3>Is It Worth It? Price Calculator</h3>
+                <p class="tool-description">See any baby product price as hours of your life — not just dollars. Is the Snoo worth 48 hours of work? Find out.</p>
+                <span class="tool-category">Buying Decisions</span>
+            </a>
+        </div>
+
+        <div class="cta-section">
+            <h2>Need Product Recommendations?</h2>
+            <p>Our tools can help you understand what's happening, but sometimes you need the right products to help.</p>
+            <a href="/#featured" class="cta-button">View Our Top-Rated Products</a>
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>New Parent Reviews</h4>
+                <p>Honest reviews from real parents.</p>
+            </div>
+
+            <div class="footer-section">
+                <h4>Free Tools</h4>
+                <ul>
+                    <li><a href="https://newparentreviews.com/tools/baby-fever-checker">Fever Checker</a></li>
+                    <li><a href="/tools/baby-sleep-schedule">Sleep Schedule</a></li>
+                    <li><a href="/tools/feeding-calculator">Feeding Calculator</a></li>
+                    <li><a href="https://newparentreviews.com/tools/congestion-checker">Congestion Checker</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h4>Resources</h4>
+                <ul>
+                    <li><a href="/blog-index">Survival Guide</a></li>
+                    <li><a href="/comparisons-index">Product Comparisons</a></li>
+                    <li><a href="https://newparentreviews.com/deals">Deals & Sales</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h4>Legal</h4>
+                <ul>
+                    <li><a href="/legal/disclosure">Affiliate Disclosure</a></li>
+                    <li><a href="/legal/privacy">Privacy Policy</a></li>
+                    <li><a href="/legal/disclaimer">Medical Disclaimer</a></li>
+                    <li><a href="/legal/terms">Terms of Use</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            © 2026 New Parent Reviews. All rights reserved. | As an Amazon Associate, we earn from qualifying purchases.
+        </div>
+    </footer>
+
+    <div class="footer-disclosure">
+      <div class="container"><p>💝 <strong>Disclosure:</strong> This site contains affiliate links. <a href="/legal/disclosure">Read our full disclosure policy</a>.</p></div>
+    </div>
+
+<script>
+(function(){
+  var btn = document.querySelector('.menu-toggle');
+  var nav = document.querySelector('header nav');
+  if(!btn || !nav) return;
+  btn.addEventListener('click', function(){
+    var open = nav.classList.toggle('open');
+    btn.classList.toggle('open', open);
+    btn.setAttribute('aria-expanded', open);
+  });
+  // close on outside click
+  document.addEventListener('click', function(e){
+    if(!e.target.closest('header')){
+      nav.classList.remove('open');
+      btn.classList.remove('open');
+      btn.setAttribute('aria-expanded', false);
+    }
+  });
+})();
+</script>
+</body>
+</html>
