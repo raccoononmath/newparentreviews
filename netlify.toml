@@ -38,7 +38,7 @@
   [headers.values]
     Cache-Control = "public, max-age=0, must-revalidate"
 
-# ── CSS — cache 1 week (gets updates when you deploy) ────────────────────────
+# ── CSS — cache 1 week ────────────────────────────────────────────────────────
 [[headers]]
   for = "/*.css"
   [headers.values]
@@ -50,7 +50,7 @@
   [headers.values]
     Cache-Control = "public, max-age=604800, stale-while-revalidate=86400"
 
-# ── Images — cache 1 year (they never change) ─────────────────────────────────
+# ── Images — cache 1 year ─────────────────────────────────────────────────────
 [[headers]]
   for = "/images/*"
   [headers.values]
@@ -98,6 +98,19 @@
   status = 301
   force = true
 
+# ── Recall tracker (MUST be before the /* catch-all) ─────────────────────────
+[[redirects]]
+  from = "/recalls"
+  to = "https://recall-newparentreviews.netlify.app/"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/recalls/*"
+  to = "https://recall-newparentreviews.netlify.app/:splat"
+  status = 200
+  force = true
+
 # ── 404 fallback ──────────────────────────────────────────────────────────────
 [[redirects]]
   from = "/*"
@@ -109,9 +122,3 @@
   for = "/a8f3b2e1d4c7891056ab23fe4d567890.txt"
   [headers.values]
     Content-Type = "text/plain"
-# To add Recall Website link
-[[redirects]]
-  from = "/recalls/*"
-  to = "https://recall-newparentreviews.netlify.app/:splat"
-  status = 200
-  force = true
