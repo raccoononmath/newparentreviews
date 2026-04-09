@@ -1,30 +1,124 @@
+# Netlify Configuration — newparentreviews.com
+
 [build]
-  # No build command needed - we push pre-built static files
   publish = "."
 
-# Redirect /recalls/ to serve from this repo's root
-# (If deploying as a subdirectory of newparentreviews.net)
+# ── Clean URLs (no .html in address bar) ─────────────────────────────────────
+[build.processing]
+  skip_processing = false
 
+[build.processing.html]
+  pretty_urls = true
+
+[build.processing.css]
+  bundle = false
+  minify = true
+
+[build.processing.js]
+  bundle = false
+  minify = true
+
+[build.processing.images]
+  compress = true
+
+# ── Global security headers ───────────────────────────────────────────────────
 [[headers]]
   for = "/*"
   [headers.values]
     X-Frame-Options = "DENY"
     X-Content-Type-Options = "nosniff"
+    X-XSS-Protection = "1; mode=block"
     Referrer-Policy = "strict-origin-when-cross-origin"
+    Permissions-Policy = "geolocation=(), microphone=(), camera=()"
+    Strict-Transport-Security = "max-age=31536000; includeSubDomains; preload"
 
+# ── HTML — no cache (always fresh) ───────────────────────────────────────────
 [[headers]]
-  for = "/assets/*"
+  for = "/*.html"
   [headers.values]
-    Cache-Control = "public, max-age=604800"
+    Cache-Control = "public, max-age=0, must-revalidate"
 
-# Clean URLs
+# ── CSS — cache 1 week ────────────────────────────────────────────────────────
+[[headers]]
+  for = "/*.css"
+  [headers.values]
+    Cache-Control = "public, max-age=604800, stale-while-revalidate=86400"
+
+# ── JS — cache 1 week ─────────────────────────────────────────────────────────
+[[headers]]
+  for = "/*.js"
+  [headers.values]
+    Cache-Control = "public, max-age=604800, stale-while-revalidate=86400"
+
+# ── Images — cache 1 year ─────────────────────────────────────────────────────
+[[headers]]
+  for = "/images/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+# ── SVG — cache 1 year ────────────────────────────────────────────────────────
+[[headers]]
+  for = "/*.svg"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+# ── Favicon — cache 1 year ────────────────────────────────────────────────────
+[[headers]]
+  for = "/favicon*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+# ── Redirects ─────────────────────────────────────────────────────────────────
 [[redirects]]
-  from = "/categories"
-  to = "/categories/index.html"
-  status = 200
+  from = "/sitemap"
+  to = "/sitemap.xml"
+  status = 301
 
-# 404 page
+[[redirects]]
+  from = "/index.html"
+  to = "/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/privacy.html"
+  to = "/legal/privacy.html"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/disclaimer.html"
+  to = "/legal/disclaimer.html"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/disclosure.html"
+  to = "/legal/disclosure.html"
+  status = 301
+  force = true
+
+# ── Recall tracker (MUST be before the /* catch-all) ─────────────────────────
+[[redirects]]
+  from = "/recalls"
+  to = "https://recall-newparentreviews.netlify.app/"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/recalls/*"
+  to = "https://recall-newparentreviews.netlify.app/:splat"
+  status = 200
+  force = true
+
+# ── 404 fallback ──────────────────────────────────────────────────────────────
 [[redirects]]
   from = "/*"
-  to = "/index.html"
+  to = "/404.html"
   status = 404
+
+# IndexNow verification
+[[headers]]
+  for = "/a8f3b2e1d4c7891056ab23fe4d567890.txt"
+  [headers.values]
+    Content-Type = "text/plain"
